@@ -1,0 +1,123 @@
+::-webkit-scrollbar{
+	width: 2px;
+    width: 5px;
+    height: 5px;
+	background-color: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,.5);
+    width: 5px;
+    height: 5px;
+    border-radius: 2px;
+}
+.seat-booked{
+    background-color: #eee;
+    margin: 4px;
+    text-align: center;
+    width: 25px;
+    height: 25px; 
+    pointer-events: none;
+    a{
+        color:white;
+        text-decoration: none;
+        font-size: 10px;
+    }
+}
+.seatRow{
+    margin: 4px;
+    text-align: center;
+    width: 25px;
+    height: 25px;
+}
+.seatI{
+    margin: 4px;
+    text-align: center;
+    width: 25px;
+    height: 25px; 
+    border: 1px solid #1ea83c; 
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.seatI a{ 
+    text-decoration: none; 
+    color:#1ea83c;
+    font-size: 10px;
+}
+
+.seatI:hover{ 
+    background-color: #1ea83c!important;
+}
+.seatI:hover a{
+    color:white !important;
+}
+
+.booked{
+    margin: 4px;
+    text-align: center;
+    width: 25px;
+    height: 25px; 
+    background-color:#1ea83c;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.booked a{
+    text-decoration: none;
+    color:white;
+    font-size: 10px;
+}
+.Emptyspace{
+    margin: 4px;
+    text-align: center;
+    width: 25px;
+    height: 25px; 
+}
+.blockPayment{
+    background-color:rgb(236, 94, 113);
+    color:white;
+    border-radius:12px;
+    padding:10px 10px;
+    cursor:pointer; 
+}
+.seat-count{
+    input{
+        cursor: pointer;
+        height: 30px;
+        width:30px;
+        border-radius: 50%;
+        background-color: white;
+        text-align: center;
+        color: black;
+        font-size: 13px;
+        border-width: 0px;
+
+    }
+    input:hover{
+        background-color: red;
+        color: white;
+    }
+    input:focus{
+        outline: none;
+    }
+    .inputadd{
+        cursor: pointer;
+        height: 30px;
+        width:30px;
+        border-radius: 50%;
+        font-size: 13px;
+        background-color: red;
+        color: white;
+        border-width: 0px;
+    }
+    button{
+        margin: 30px 0px;
+        background-color: red;
+        color: white;
+        border-width: 0px;
+        border-radius: 12px;
+        padding: 10px;
+    }
+}

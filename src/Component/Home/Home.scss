@@ -1,0 +1,108 @@
+.nav{
+    .signin-hover:hover,.rightBar:hover{
+      border-color: white;
+      background-color: rgba(128, 128, 128, 0.11);
+    }
+    .signinButton:hover{
+      color:black;
+      background-color: gray;
+    }
+    .searchCity:focus{
+      outline: none;
+    }
+}
+.car-Container{
+   .slick-slide > div {
+       padding: 0 10px;
+     }
+    .slick-list {
+      padding: 0 -10px;
+    }
+    .slick-next {
+      top:50%; 
+      right: 0px ;
+      }
+    .slick-prev {
+        left: 0px; 
+    }
+    .slick-dots{
+        bottom: 15px ;
+    }
+    .slick-dots li button:before{
+        font-size: 10px;
+        color: white;
+    }
+    
+    @media (max-width:586px) {
+      .res-carosel-one img{
+        height: 180px;
+      }
+    }
+    @media (min-width:586px){
+      .res-carosel-one img{
+        height: 250px;
+      }
+    }
+    @media (min-width:786px) {
+      .res-carosel-one img{
+        height: 270px;
+      }
+    }
+}
+.carousel-recommended{
+ .slick-next {
+   top:40%; 
+   right: -15px ;
+   }
+  .slick-prev {
+    top: 40%;
+    left: -15px;
+  }
+}
+
+.carousel-type{
+  .slick-next {
+    top:50%; 
+    right: -15px ;
+    }
+   .slick-prev {
+     top: 50%;
+     left: -15px; 
+   }
+ }
+
+
+.foter{
+  .hvr{
+    color:gray;
+    svg,p{
+      color:gray; 
+    } 
+  }
+
+  .hvr:hover{
+    color:white;
+    transition:.5s;
+
+    svg,p{
+      color:white;
+      transition:.2s;
+    } 
+  }
+
+  .footIcon{
+      a{
+        border-radius: 50%;
+        background-color: gray;
+        cursor: pointer;
+      }
+  }
+
+  .footIcon:hover{
+    a{
+      border-radius: 50%;
+      background-color: white;
+      transition:.2s;
+    }
+}
+}

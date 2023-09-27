@@ -1,0 +1,32 @@
+.sticky-dnone{
+    display: none;
+    transition:all .5s ease-in-out;
+}
+.active-scrol{
+    display: block;
+    position:sticky;
+    top:0px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 8px 0px;
+    animation: 0.3s ease 0s 1 normal none running activate;
+    background-color:white;
+    z-index: 999;
+}
+@keyframes activate{
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.slick-next {
+    top:38%; 
+    right: 5px ; 
+    z-index: 1;
+}
+.slick-prev {
+    top: 38%;
+    left: 5px;
+    z-index: 1;
+}
