@@ -13,9 +13,7 @@ export const Redux=createSlice({
         duplicateTheaterSeat:[],
         defaultLocation:"Chennai",
         arrayTicketCount:MainJsonArray.seatCount,
-        snackList:MainJsonArray.snacksItems,
-        theaterAplhabet:MainJsonArray.theaterAplhabet,
-        searchValues:[]
+        snackList:MainJsonArray.snacksItems
     },
     reducers:{
         updateTicketArray:(state,action)=>{
@@ -29,11 +27,8 @@ export const Redux=createSlice({
         },
         updateTheater:(state,action)=>{
             state.theater=action.payload
-        },
-        updateSearch:(state,action)=>{
-            state.searchValues=action.payload
         }
     }
 })
 export default Redux.reducer
-export const{updateduplicateTheaterSeat,updatedefaultLocation,updateTicketArray,updateTheater,updateSearch}=Redux.actions
+export const{updateduplicateTheaterSeat,updatedefaultLocation,updateTicketArray,updateTheater}=Redux.actions

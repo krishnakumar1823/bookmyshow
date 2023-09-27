@@ -2,8 +2,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import MenuIcon from '@mui/icons-material/Menu';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
-import { AppBar, Badge, Box, Button, Container, DialogContentText, DialogTitle, Divider, Drawer, IconButton, Input, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem, Modal, Slide, Stack, TextField, Toolbar, Typography } from "@mui/material";
-import React, {useState } from "react";
+import { AppBar, Badge, Box, Button, Container, DialogContentText, DialogTitle, Divider, Drawer, IconButton, Input, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem, Slide, Stack, TextField, Toolbar, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import Dialog from '@mui/material/Dialog'; 
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
@@ -12,52 +12,61 @@ import { IoIosNotificationsOutline } from "react-icons/io";
 import { IoBagOutline,IoChatbubblesOutline } from "react-icons/io5";
 import { MdKeyboardArrowRight,MdOutlineOndemandVideo } from "react-icons/md";
 import { BsTicket,BsGift } from "react-icons/bs";
-import { BiSearch } from "react-icons/bi";
 import { HiOutlineCreditCard } from "react-icons/hi";
 import { AiOutlineSetting,AiFillApple,AiFillCaretDown } from "react-icons/ai";
 import "./Home.scss"
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { updatedefaultLocation } from '../Redux/Redux';
-import { useNavigate } from 'react-router';
 
 
 export const Nav=()=>{
-    const stateLoc=useSelector(
-        ({data})=>data
-    )
-    const[SearchMoviesListt,setSearchMoviesListt]= React.useState("")
-    const[searchStateTrue,setsearchStateTrue]=useState(false)
-     //searchbar
-     const searchMovies=(e)=>{  
-        var a=stateLoc.array_recommended 
-        var b=e.target.value 
-        if(b.length>0){
-            setsearchStateTrue(true)
-            var obj=[]
-            var count=0
-            for(var i=0;i<a.length;i++){
-                count=0
-                for(var j=0;j<b.length;j++){
-                    if(a[i].mname[j]!==undefined){
-                        var nme=a[i].mname[j].toLowerCase()
-                        if(nme===b[j]){
-                            ++count
-                        }
-                    }
-                } 
-                if(count===b.length){
-                    obj[obj.length]=a[i] 
-                    setSearchMoviesListt(obj)
-                }           
-            } 
-        }
-        else{
-            setsearchStateTrue(false)
-            setSearchMoviesListt([])
-        }
-    }
-    console.log(SearchMoviesListt)
-
+    const Search = styled('div')(({ theme }) => ({
+        position: 'relative',
+        borderRadius: theme.shape.borderRadius,
+        backgroundColor: alpha(theme.palette.common.white, 0.15),
+        '&:hover': {
+          backgroundColor: alpha(theme.palette.common.white),
+        },
+        marginRight: theme.spacing(2),
+        marginLeft: 0,
+        width: '100%',
+        [theme.breakpoints.up('sm')]: {
+          marginLeft: theme.spacing(6),
+          width: '30ch',
+        },
+        [theme.breakpoints.up('md')]: {
+            marginLeft: theme.spacing(12),
+            width: '40ch',
+          },
+      }));
+      
+      const SearchIconWrapper = styled('div')(({ theme }) => ({
+        padding: theme.spacing(0, 2),
+        height: '100%',
+        position: 'absolute',
+        pointerEvents: 'none',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }));
+      
+      const StyledInputBase = styled(InputBase)(({ theme }) => ({
+        color: 'inherit',
+        '& .MuiInputBase-input': {
+        //   padding: theme.spacing(1, 1, 1, 0),
+            // vertical padding + font size from searchIcon
+          paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+          transition: theme.transitions.create('width'),
+          width: '100%', 
+          [theme.breakpoints.up('md')]: {
+            width: '50ch',
+          },
+          [theme.breakpoints.up('lg')]: {
+            width: '43ch',
+          },
+        },
+      }));     
+      
       const BootstrapDialog = styled(Dialog)(({ theme }) => ({
         '& .MuiDialogContent-root': {
           padding: theme.spacing(2),
@@ -77,7 +86,7 @@ export const Nav=()=>{
         };
       
       const [state, setState] = React.useState({
-        right: false
+        right: false,
       });
     
       const toggleDrawer = (anchor, open) => (event) => {
@@ -271,19 +280,16 @@ export const Nav=()=>{
 
     //Setting loaction as global
     const dispatch=useDispatch()
+    const[location,setLocation]=useState("Chennai")
     const settingLocation=(val)=>{
-        setOpenLocation(false); 
+        setOpenLocation(false);
+        setLocation(val)  
         dispatch(updatedefaultLocation(val))     
     }
-
-    //search movies page render
-    const pageRender=useNavigate()
-    const MovetoDetailPage=(movieId)=>{
-        pageRender(`/details?mid=${movieId}`)
-      }
+  
  
     return( 
-        <Box sx={{ flexGrow: 1 ,zIndex:1000,position:"relative"}}>
+        <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static" sx={{backgroundColor:"rgb(51, 53, 69)"}}>
                 <Container>
                     <Toolbar>
@@ -295,7 +301,7 @@ export const Nav=()=>{
                             alignItems={"center"}
                             sx={{mt:2 }}
                         >
-                            <a style={{cursor:"pointer"}}>
+                            <a href="">
                                 <svg viewBox="0 0 88 26" height="38" xmlns="http://www.w3.org/2000/svg">
                                 <title>BookMyShow</title>
                                     <g fill="none">
@@ -306,20 +312,20 @@ export const Nav=()=>{
                             </a>
                         </Typography>
                     </Box>
-                    <Box sx={{ display: { xs: 'flex',lg:'flex', md: 'flex',sm:'flex',xs:'none'},backgroundColor:"white",color:"black",marginLeft:{sm:"40px",md:"30px"},width:{sm:"50%",md:"40%",lg:"35%"},justifyContent:"center",alignItems:"center",borderRadius:"6px",padding:"1px"}} columnGap={"10px"}>
-                        <BiSearch sx={{width:{sm:"10%",md:"10%"}}}/>
-                        <Input 
-                            type="text" 
-                            placeholder="Search..."
-                            onChange={(e)=>searchMovies(e)}
-                            sx={{width:{sm:"85%",md:"85%"},borderBottom:"0px"}}
+                    <Search sx={{ display: { xs: 'flex',lg:'flex', md: 'flex',sm:'block',xs:'none'},backgroundColor:"white",color:"black" }}>
+                        <SearchIconWrapper>
+                        <SearchIcon />
+                        </SearchIconWrapper>
+                        <StyledInputBase
+                        placeholder="Search…"
+                        inputProps={{ 'aria-label': 'search' }}
                         />
-                    </Box>
+                    </Search>
                     <Box sx={{ flexGrow: 1 }} />
 
                     <Box sx={{ display: { xs: 'flex',lg:'flex', md: 'flex',sm:'none',xs:'none'}}}>
                     <Button onClick={handleClickOpenLocation} sx={{color:"white",fontSize:"13px",textTransform:"capitalize",marginRight:"30px"}}>
-                            {stateLoc.defaultLocation}<AiFillCaretDown/>
+                            {location}<AiFillCaretDown/>
                         </Button>
                         <BootstrapDialog
                             open={openLocation}
@@ -339,61 +345,61 @@ export const Nav=()=>{
                                 <Box px={3} sx={{display:"flex",flexWrap:"wrap"}} columnGap={"25px"}>
                                     <List>
                                         <a href="#" style={{fontSize:"12px",textDecoration:"none",color:"black"}} onClick={()=>settingLocation("Mumbai")}>
-                                            <img src={stateLoc.defaultLocation==="Mumbai" ? "https://in.bmscdn.com/m6/images/common-modules/regions/mumbai-selected.png":"https://in.bmscdn.com/m6/images/common-modules/regions/mumbai.png"}/>
+                                            <img src={location==="Mumbai" ? "https://in.bmscdn.com/m6/images/common-modules/regions/mumbai-selected.png":"https://in.bmscdn.com/m6/images/common-modules/regions/mumbai.png"}/>
                                             <p style={{margin:"0px",textAlign:"center"}}>Mumbai</p>
                                         </a>
                                     </List>
                                     <List>
                                     <a href="#" style={{fontSize:"12px",textDecoration:"none",color:"black"}} onClick={()=>settingLocation("Delhi")}>
-                                            <img src={stateLoc.defaultLocation==="Delhi" ?  "https://in.bmscdn.com/m6/images/common-modules/regions/ncr-selected.png":"https://in.bmscdn.com/m6/images/common-modules/regions/ncr.png"}/>
+                                            <img src={location==="Delhi" ?  "https://in.bmscdn.com/m6/images/common-modules/regions/ncr-selected.png":"https://in.bmscdn.com/m6/images/common-modules/regions/ncr.png"}/>
                                             <p style={{margin:"0px",textAlign:"center"}}>Delhi</p>
                                         </a>
                                     </List>
                                     <List>
                                     <a href="#" style={{fontSize:"12px",textDecoration:"none",color:"black"}} onClick={()=>settingLocation("Bengaluru")}>
-                                            <img  src={stateLoc.defaultLocation==="Bengaluru" ? "https://in.bmscdn.com/m6/images/common-modules/regions/bang-selected.png": "https://in.bmscdn.com/m6/images/common-modules/regions/bang.png"}/>
+                                            <img  src={location==="Bengaluru" ? "https://in.bmscdn.com/m6/images/common-modules/regions/bang-selected.png": "https://in.bmscdn.com/m6/images/common-modules/regions/bang.png"}/>
                                             <p style={{margin:"0px",textAlign:"center"}}>Bengaluru</p>
                                         </a>
                                     </List>
                                     <List>
                                     <a href="#" style={{fontSize:"12px",textDecoration:"none",color:"black"}} onClick={()=>settingLocation("Hyderabad")}>
-                                            <img src={stateLoc.defaultLocation==="Hyderabad" ? "https://in.bmscdn.com/m6/images/common-modules/regions/hyd-selected.png":"https://in.bmscdn.com/m6/images/common-modules/regions/hyd.png"}/>
+                                            <img src={location==="Hyderabad" ? "https://in.bmscdn.com/m6/images/common-modules/regions/hyd-selected.png":"https://in.bmscdn.com/m6/images/common-modules/regions/hyd.png"}/>
                                             <p style={{margin:"0px",textAlign:"center"}}>Hyderabad</p>
                                         </a>
                                     </List> 
                                     <List>
                                         <a href="#" style={{fontSize:"12px",textDecoration:"none",color:"black"}} onClick={()=>settingLocation("Ahmedabad")}>
-                                            <img  src={stateLoc.defaultLocation==="Ahmedabad" ? "https://in.bmscdn.com/m6/images/common-modules/regions/ahd-selected.png":"https://in.bmscdn.com/m6/images/common-modules/regions/ahd.png"}/>
+                                            <img  src={location==="Ahmedabad" ? "https://in.bmscdn.com/m6/images/common-modules/regions/ahd-selected.png":"https://in.bmscdn.com/m6/images/common-modules/regions/ahd.png"}/>
                                             <p style={{margin:"0px",textAlign:"center"}}>Ahmedabad</p>
                                         </a>
                                     </List>
                                     <List>
                                     <a href="#" style={{fontSize:"12px",textDecoration:"none",color:"black"}} onClick={()=>settingLocation("Chandigarh")}>
-                                            <img src={stateLoc.defaultLocation==="Chandigarh" ? "https://in.bmscdn.com/m6/images/common-modules/regions/chd-selected.png":"https://in.bmscdn.com/m6/images/common-modules/regions/chd.png"}/>
+                                            <img src={location==="Chandigarh" ? "https://in.bmscdn.com/m6/images/common-modules/regions/chd-selected.png":"https://in.bmscdn.com/m6/images/common-modules/regions/chd.png"}/>
                                             <p style={{margin:"0px",textAlign:"center"}}>Chandigarh</p>
                                         </a>
                                     </List>
                                     <List>
                                     <a href="#" style={{fontSize:"12px",textDecoration:"none",color:"black"}} onClick={()=>settingLocation("Chennai")}>
-                                            <img src={stateLoc.defaultLocation==="Chennai" ? "https://in.bmscdn.com/m6/images/common-modules/regions/chen-selected.png":"https://in.bmscdn.com/m6/images/common-modules/regions/chen.png"}/>
+                                            <img src={location==="Chennai" ? "https://in.bmscdn.com/m6/images/common-modules/regions/chen-selected.png":"https://in.bmscdn.com/m6/images/common-modules/regions/chen.png"}/>
                                             <p style={{margin:"0px",textAlign:"center"}}>Chennai</p>
                                         </a>
                                     </List> 
                                     <List>
                                         <a href="#" style={{fontSize:"12px",textDecoration:"none",color:"black"}} onClick={()=>settingLocation("Pune")}>
-                                            <img src={stateLoc.defaultLocation==="Pune" ? "https://in.bmscdn.com/m6/images/common-modules/regions/pune-selected.png":"https://in.bmscdn.com/m6/images/common-modules/regions/pune.png"}/>
+                                            <img src={location==="Pune" ? "https://in.bmscdn.com/m6/images/common-modules/regions/pune-selected.png":"https://in.bmscdn.com/m6/images/common-modules/regions/pune.png"}/>
                                             <p style={{margin:"0px",textAlign:"center"}}>Pune</p>
                                         </a>
                                     </List>
                                     <List>
                                     <a href="#" style={{fontSize:"12px",textDecoration:"none",color:"black"}} onClick={()=>settingLocation("Kolkata")}>
-                                            <img src={stateLoc.defaultLocation==="Kolkata" ? "https://in.bmscdn.com/m6/images/common-modules/regions/kolk-selected.png":"https://in.bmscdn.com/m6/images/common-modules/regions/kolk.png"}/>
+                                            <img src={location==="Kolkata" ? "https://in.bmscdn.com/m6/images/common-modules/regions/kolk-selected.png":"https://in.bmscdn.com/m6/images/common-modules/regions/kolk.png"}/>
                                             <p style={{margin:"0px",textAlign:"center"}}>Kolkata</p>
                                         </a>
                                     </List>
                                     <List>
                                     <a href="#" style={{fontSize:"12px",textDecoration:"none",color:"black"}} onClick={()=>settingLocation("Kochi")}>
-                                            <img src={stateLoc.defaultLocation==="Kochi" ? "https://in.bmscdn.com/m6/images/common-modules/regions/koch-selected.png":"https://in.bmscdn.com/m6/images/common-modules/regions/koch.png"}/>
+                                            <img src={location==="Kochi" ? "https://in.bmscdn.com/m6/images/common-modules/regions/koch-selected.png":"https://in.bmscdn.com/m6/images/common-modules/regions/koch.png"}/>
                                             <p style={{margin:"0px",textAlign:"center"}}>Kochi</p>
                                         </a>
                                     </List>
@@ -495,6 +501,8 @@ export const Nav=()=>{
                     </Toolbar>
                 </Container>
 
+
+
                 <Box sx={{backgroundColor:"rgb(34, 37, 57)"}}>
                     <Container>
                         <Box sx={{display:"flex",flexWrap:"wrap",justifyContent:"space-between"}}>
@@ -540,46 +548,6 @@ export const Nav=()=>{
                     </Container>
                 </Box>
             </AppBar>
-
-            {
-                searchStateTrue 
-                    ?
-                    <Box sx={{backgroundColor:"whitesmoke",position:"absolute",top:"100%",height:"auto",width:"100%"}}>
-                        <Container>
-                            <Box sx={{display:"flex",flexWrap:"wrap",justifyContent:"center",alignItems:"center"}}>
-                                {SearchMoviesListt.map((val,ind)=>{
-                                    return (<Box key={ind} sx={{width:"20%",padding:"10px"}}>
-                                        <Box style={{cursor:"pointer",border:"1px solid gray",borderRadius:"12px",backgroundColor:"white"}} onClick={()=>MovetoDetailPage(val.mid)}>
-                                            <Typography 
-                                                component="img" 
-                                                src={val.mimg}
-                                                sx={{width:"100%",borderRadius:"12px"}}
-                                                > 
-                                            </Typography> 
-                                            <Box>
-                                                <Typography 
-                                                    component="h3"  
-                                                    sx={{width:"100%",overflow:"hidden",textAlign:"start",padding:"10px 0px 10px 10px",fontWeight:600,fontSize:"12px",textTransform:"capitalize"}}
-                                                    > 
-                                                    {val.mname}
-                                                </Typography> 
-                                                <Typography 
-                                                    component="p"  
-                                                    sx={{width:"80%",overflow:"hidden",fontSize:"12px",textAlign:"start",paddingLeft:"10px",fontWeight:300,textTransform:"capitalize"}}
-                                                    > 
-                                                    {val.mtype}
-                                                </Typography>
-                                            </Box>
-                                        </Box>
-                                    </Box>)
-                                })}
-                            </Box>
-                        </Container>
-                    </Box>
-
-                    :
-                    ""
-            }
         </Box>
     )
 }
