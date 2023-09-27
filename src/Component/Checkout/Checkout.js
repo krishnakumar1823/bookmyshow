@@ -1,6 +1,6 @@
-import { Box, Container, List, ListItem, Typography } from "@mui/material"
+import { Box, Container, Typography } from "@mui/material"
 import { useDispatch, useSelector } from "react-redux"
-import { updateTheater, updateTicketArray, updateduplicateTheaterSeat } from "../Redux/Redux"
+import { updateTheater, updateTicketArray} from "../Redux/Redux"
 import { useNavigate } from "react-router"
 import { useEffect, useState } from "react"
 import { SlArrowLeft } from "react-icons/sl";
