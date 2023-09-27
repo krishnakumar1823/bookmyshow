@@ -1,4 +1,4 @@
- import { Box, Container, List, ListItem, Typography } from "@mui/material"
+import { Box, Container, List, ListItem, Typography } from "@mui/material"
 import { useDispatch, useSelector } from "react-redux"
 import { updateTheater, updateTicketArray, updateduplicateTheaterSeat } from "../Redux/Redux"
 import { useNavigate } from "react-router"
@@ -6,6 +6,8 @@ import { useEffect, useState } from "react"
 import { SlArrowLeft } from "react-icons/sl";
 import { useSearchParams } from "react-router-dom"
 import { BsCurrencyRupee } from "react-icons/bs";
+import { CiCircleChevDown } from "react-icons/ci";
+
 
 export const Checkout=()=>{
     const state=useSelector(
@@ -23,7 +25,7 @@ export const Checkout=()=>{
     console.log(ticketsPrinting)
     
     const proceed=()=>{
-        var amt= 120*ticketsPrinting.length
+        var amt= 120*ticketsPrinting.length+70.80
 		var options = {
 			key: "rzp_test_BcLelq9LhqgLDh", 
             key_secret:"u77S5UVhRxXXvc9LRdb13Dda", 
@@ -143,7 +145,7 @@ export const Checkout=()=>{
                 <Container maxWidth="xl">
                     <Box sx={{display:"flex",alignItems:"center",flexWrap:"wrap",justifyContent:"start"}}>
                         <Box sx={{width:{xs:"100%",md:"45%"},display:"flex",alignItems:"center",flexWrap:"wrap"}}>
-                            <Box sx={{width:"5%"}}>
+                            <Box sx={{width:"10%"}}>
                                     <Typography
                                         component="i"
                                         onClick={()=>moveBack()}
@@ -151,7 +153,7 @@ export const Checkout=()=>{
                                             <SlArrowLeft/>
                                     </Typography>
                             </Box>
-                            <Box sx={{width:"90%",display:"flex",alignItems:"center",flexWrap:"wrap"}}>
+                            <Box sx={{width:"85%",display:"flex",alignItems:"center",flexWrap:"wrap"}}>
                                 <Box sx={{width:"100%",display:"flex",alignItems:"center",flexWrap:"wrap"}}>
                                     <Box sx={{width:"95%",display:"flex",alignItems:"center",flexWrap:"wrap"}}>
                                     <Typography
@@ -185,7 +187,7 @@ export const Checkout=()=>{
                     { 
                         bookingStatus ?
 
-                            <Box sx={{display:"flex",flexWrap:"wrap",justifyContent:"space-between",alignItems:"center"}}>
+                            <Box sx={{display:"flex",flexWrap:"wrap",justifyContent:{xs:"center",lg:"space-between"},alignItems:"center"}}>
                                 <Box sx={{width:{xs:"100",md:"70%"},order:{xs:2,md:0}}}>
                                     <Box>
                                         <Typography
@@ -252,7 +254,7 @@ export const Checkout=()=>{
                                     </Box>
                                 </Box>
 
-                                <Box sx={{width:{xs:"100%",md:"25%"},order:{xs:1,md:0},backgroundColor:"white",padding:{xs:"10px 15px"},height:{xs:"50vh",md:"40vh"},borderRadius:"12px"}}>
+                                <Box sx={{width:{xs:"100%",sm:"50%",md:"25%"},order:{xs:1,md:0},backgroundColor:"white",padding:{xs:"10px 15px"},height:"auto",borderRadius:"12px",marginBottom:{xs:"50px",md:"0px"}}}>
                                     <Box>
                                         <Typography
                                             component="h1"
@@ -261,31 +263,56 @@ export const Checkout=()=>{
                                         </Typography>
                                     </Box>
 
-                                    <Box>
-                                        <Typography
-                                            component="p"
-                                            sx={{fontSize:"12px",color:"gray",textAlign:"center"}} pt={2}>
-                                        Your Tickets
-                                        </Typography>
-                                        <ul style={{fontSize:"12px",color:"gray",listStyleType:"none",display:"flex",flexWrap:"wrap",padding:"0px"}}>
-                                            {
-                                                ticketsPrinting.map((val,ind)=>{
-                                                    return(
-                                                        <li style={{width:"20%",borderLeft:"1px solid red",borderRight:"1px solid red",margin:"5px 5px",textAlign:"center"}}>
-                                                            {val}
-                                                        </li>
-                                                    )
-                                                })
-                                            }
-                                        </ul>
+                                    <Box sx={{display:"flex",flexWrap:"wrap",justifyContent:"center",alignItems:"center"}}>
+                                        <Box sx={{width:"80%"}}>
+                                            <Typography
+                                                component="p"
+                                                sx={{fontSize:"12px",color:"gray",textAlign:"center"}} pt={2}>
+                                            Your Tickets
+                                            </Typography>
+                                            <ul style={{fontSize:"12px",color:"gray",listStyleType:"none",display:"flex",flexWrap:"wrap",padding:"0px"}}>
+                                                {
+                                                    ticketsPrinting.map((val,ind)=>{
+                                                        return(
+                                                            <li style={{width:"20%",borderLeft:"1px solid red",borderRight:"1px solid red",margin:"5px 5px",textAlign:"center"}}>
+                                                                {val}
+                                                            </li>
+                                                        )
+                                                    })
+                                                }
+                                            </ul>
+                                        </Box>
+                                        <Box sx={{width:"20%"}}>
+                                            <Typography
+                                                component="p"
+                                                sx={{fontSize:"14px",color:"black"}} pt={2}>
+                                            Rs:{ticketsPrinting.length*120}.0
+                                            </Typography>
+                                        </Box>
+                                        
+                                        <Box sx={{width:"80%"}}>
+                                            <Typography
+                                                component="p"
+                                                sx={{fontSize:"16px",color:"gray"}} pt={2}>
+                                            <CiCircleChevDown/> Convenience fees
+                                            </Typography>
+                                        </Box>
+
+                                        <Box sx={{width:"20%"}}>
+                                            <Typography
+                                                component="p"
+                                                sx={{fontSize:"14px",color:"black"}} pt={2}>
+                                            Rs:70.80
+                                            </Typography>
+                                        </Box>
                                     </Box>
                                     
-                                    <Box onClick={()=>proceed()} id="rzp-button1" sx={{cursor:"pointer",color:"white",backgroundColor:"#f84464",display:"flex",flexWrap:"wrap",alignItems:"center",justifyContent:"space-between",borderRadius:"6px"}} py={1} px={2}>
+                                    <Box onClick={()=>proceed()} id="rzp-button1" sx={{cursor:"pointer",color:"white",backgroundColor:"#f84464",display:"flex",flexWrap:"wrap",alignItems:"center",justifyContent:"space-between",borderRadius:"6px"}} py={1} px={2} mt={5}>
                                         <Typography
                                             component="a"
                                             sx={{fontSize:"13px"}}
                                             >
-                                        Pay Rs:{120*ticketsPrinting.length}
+                                        Pay Rs:{(120*ticketsPrinting.length)+70.80}
                                         </Typography>
 
                                         <Typography
@@ -301,11 +328,11 @@ export const Checkout=()=>{
                         :
 
                             <Box sx={{width:"100%",height:"80vh",display:"flex",flexWrap:"wrap",justifyContent:"center",alignItems:"center"}}>
-                                <Box sx={{width:"40%",border:"1px solid gray",borderRadius:"12px",padding:"20px",color:"rgb(236, 94, 113)",textAlign:"center"}}>
+                                <Box sx={{width:"50%",border:"1px solid gray",borderRadius:"12px",padding:"20px",color:"rgb(236, 94, 113)",textAlign:"center"}}>
                                     <Typography
-                                        component="p"
-                                        sx={{fontSize:"15px",fontWeight:900,color:"green"}}>
-                                            SUCCESS
+                                        component="img"
+                                        src="https://cdn.pixabay.com/photo/2020/06/07/11/34/good-luck-5269978_1280.png"
+                                        sx={{width:"100%"}}>
                                     </Typography>
 
                                     <Box onClick={()=>home()} my={2} sx={{textTransform:"capitalize",cursor:"pointer",color:"white",backgroundColor:"green",display:"flex",flexWrap:"wrap",alignItems:"center",justifyContent:"space-between",borderRadius:"6px"}} py={1} px={2}>

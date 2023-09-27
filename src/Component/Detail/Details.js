@@ -1,3 +1,6 @@
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
 import { useNavigate, useSearchParams } from "react-router-dom"
 import { Footer } from "../Home/Footer"
 import { Nav } from "../Home/Nav"
@@ -5,9 +8,6 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Box, Container, Divider, Typography } from "@mui/material"  
 import { BsFillPlayFill,BsStarFill } from "react-icons/bs";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css"; 
-import "slick-carousel/slick/slick-theme.css";
 import "./Details.scss" 
 
 export const Details=()=>{
@@ -27,7 +27,6 @@ export const Details=()=>{
     const state=useSelector(
         ({data})=>data
     )
-
 
     //INITIAL PHASE
     useEffect(()=>{
@@ -65,8 +64,6 @@ export const Details=()=>{
         window.removeEventListener('scroll', onScroll);
         window.addEventListener('scroll', onScroll, { passive: true });
         return () => window.removeEventListener('scroll', onScroll);
-
-       
     },[]);
     const myfun=()=>{
         var scrollblock=document.getElementById("stickyScroll")
@@ -80,7 +77,12 @@ export const Details=()=>{
     useEffect(()=>{
         myfun()
     })
-    
+
+    //PAGE RENDER
+    const pageRender=useNavigate()
+    const MovetoTheater=()=>{
+        pageRender(`/theater?movId=${movId}`)
+    }
 
     var settings = {
         dots: false,
@@ -94,18 +96,10 @@ export const Details=()=>{
           {
             breakpoint: 1024,
             settings: {
-              slidesToShow: 4,
-              slidesToScroll: 4,
-              infinite: false,
-              dots: false,
-            }
-          },
-          {
-            breakpoint: 800,
-            settings: {
               slidesToShow: 3,
               slidesToScroll: 3,
-              dots: false
+              infinite: false,
+              dots: false,
             }
           },
           {
@@ -149,21 +143,16 @@ export const Details=()=>{
         );
       }
 
-    //PAGE RENDER
-    const pageRender=useNavigate()
-    const MovetoTheater=()=>{
-        pageRender(`/theater?movId=${movId}`)
-    }
-
     return(
     <>
         <Nav/>
 
-            <Box sx={{background:
+        <Box sx={{background:
                 `linear-gradient(90deg, rgb(26, 26, 26) 24.97%, rgb(26, 26, 26) 38.3%, rgba(26, 26, 26, 0.04) 80%, rgb(26, 26, 26) 100%),
                 url(${obj.mbackimg})`,
                 backgroundRepeat:"no-repeat",
-                backgroundPosition:"right center"
+                backgroundPosition:"right center",
+                backgroundSize:"cover"
             }}
             
             >
@@ -185,18 +174,18 @@ export const Details=()=>{
                         </Box>
                         
                     </Box>
-                    <Box sx={{width:{xs:"100%",sm:"100%",md:"62%",lg:"72%"},order:{xs:1,md:0},color:"white"}}>
+                    <Box sx={{width:{xs:"100%",sm:"100%",md:"62%",lg:"72%"},order:{xs:1,md:0},color:"white",display:"flex",flexWrap:"wrap"}}>
                         <Typography
                             component="h1"
                             variant="h4"
-                            sx={{textTransform:"capitalize",fontWeight:400,padding:"10px 0px"}}>
+                            sx={{textTransform:"capitalize",fontWeight:400,padding:"10px 0px",width:"100%"}}>
                         {obj.mname}
                         </Typography>
 
                         <Typography
                             component="h1"
                             variant="h5"
-                            sx={{textTransform:"capitalize",padding:"10px 0px",fontSize:"18px",cursor:"pointer"}}>
+                            sx={{textTransform:"capitalize",padding:"10px 0px",fontSize:"18px",cursor:"pointer",width:"100%"}}>
                             <BsStarFill style={{color:"rgb(236, 94, 113)"}}/> {obj.mrating}/10 <span style={{paddingLeft:"5px"}}>{obj.mvotes} Votes</span>
                         </Typography>
 
@@ -222,16 +211,16 @@ export const Details=()=>{
                             </Box>
                         </Box>
 
-                        <Box sx={{display:"flex",flexWrap:"wrap",alignItems:"center",width:{xs:"90%",sm:"60%",md:"80%",lg:"60%"},padding:"10px 0px"}} columnGap="15px">
+                        <Box sx={{display:"flex",flexWrap:"wrap",alignItems:"center",width:{xs:"100%",sm:"60%",md:"80%",lg:"60%"},padding:"10px 0px"}} columnGap="15px">
                             <Typography
                                 component="p" 
-                                sx={{textTransform:"capitalize",padding:"5px 5px",width:"45%",backgroundColor:"whitesmoke",color:"black",borderRadius:"6px",fontSize:"14px",cursor:"pointer"}}>
+                                sx={{textTransform:"capitalize",padding:"5px 5px",width:"40%",backgroundColor:"whitesmoke",color:"black",borderRadius:"6px",fontSize:"14px",cursor:"pointer"}}>
                                 {obj.mdimension}
                             </Typography>
 
                             <Typography
                                 component="p" 
-                                sx={{textTransform:"capitalize",padding:"5px 5px",width:"45%",backgroundColor:"whitesmoke",color:"black",borderRadius:"6px",fontSize:"14px",cursor:"pointer"}}>
+                                sx={{textTransform:"capitalize",padding:"5px 5px",width:"40%",backgroundColor:"whitesmoke",color:"black",borderRadius:"6px",fontSize:"14px",cursor:"pointer"}}>
                                 {obj.mlanguage}
                             </Typography>
                         </Box>
@@ -262,7 +251,7 @@ export const Details=()=>{
                             </Typography>
                         </Box>
 
-                        <Box>
+                        <Box sx={{width:"100%"}}>
                             <Typography
                                 component="a"
                                 onClick={()=>MovetoTheater()}
@@ -340,8 +329,8 @@ export const Details=()=>{
                             {
                                 movieCast.map((val,ind) => {
                                     return(
-                                    <Box key={ind} my={3} sx={{textAlign:"center"}}> 
-                                        <Box sx={{cursor:"pointer"}}>
+                                    <Box key={ind}> 
+                                        <Box sx={{cursor:"pointer",textAlign:"center"}} my={3}>
                                         <Typography 
                                             component="img"
                                             src={movieCast[ind].cast}
@@ -381,14 +370,14 @@ export const Details=()=>{
                             pt={2}
                         > 
                         Crew
-                        </Typography> 
+                    </Typography> 
                     <Box mx={3}>
                         <Slider {...settings} width="0px">
                             {
                                 movieCrew.map((val,ind) => {
                                     return(
-                                    <Box key={ind} my={3} sx={{textAlign:"center"}}> 
-                                        <Box sx={{cursor:"pointer"}}>
+                                    <Box key={ind}> 
+                                        <Box sx={{cursor:"pointer",textAlign:"center"}} my={3}>
                                         <Typography 
                                             component="img"
                                             src={movieCrew[ind].crewImg}

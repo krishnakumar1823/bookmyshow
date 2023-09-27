@@ -73,7 +73,7 @@ export const Theater=()=>{
         setmovName(z)
 
         var viewCurrentdate=new Date()
-        var currentHour=10
+        var currentHour=viewCurrentdate.getHours()
         var currentMins=viewCurrentdate.getMinutes()
 
         
@@ -306,11 +306,14 @@ export const Theater=()=>{
 
     //PAGE RENDER
     const pageRender=useNavigate()
-    const movetoTicket=(getMovieObject)=>{
+    // const movetoTicket=(getMovieObject)=>{
+    //     pageRender(`/ticket?theaterName=${sendTheaterName}&movieId=${sendMovieId}`)
+    // }
+
+    const setMovieTiming=(getMovieObject,time)=>{
         let sendTheaterName=getMovieObject.theaterName
         let sendMovieId=getMovieObject.movId.mid 
-
-        pageRender(`/ticket?theaterName=${sendTheaterName}&movieId=${sendMovieId}`)
+        pageRender(`/ticket?theaterName=${sendTheaterName}&movieId=${sendMovieId}&movieTiming=${time}`)
     }
     return(
         <>
@@ -491,7 +494,7 @@ export const Theater=()=>{
                                                         <Typography 
                                                             component="p"
                                                             className="movieName"
-                                                            onClick={()=>movetoTicket(val)}
+                                                            // onClick={()=>movetoTicket(val)}
                                                             sx={{width:"100%",fontSize:"14px",cursor:"pointer"}}>
                                                             {val.theaterName}
                                                         </Typography>  
@@ -522,9 +525,10 @@ export const Theater=()=>{
                                                     <Box sx={{width:{xs:"100%",md:"40%"},padding:{xs:"15px 0px"},display:"flex",flexWrap:"wrap"}} columnGap={"10px"}>
                                                         {val.theaterTimingString.map((v,i)=>{
                                                             return(
-                                                                <Box sx={{width:{xs:"20%",lg:"15%"}}} key={i}>
+                                                                <Box sx={{width:{xs:"20%",lg:"15%"},cursor:"pointer"}} key={i}>
                                                                     <Typography 
                                                                         component="h1"
+                                                                        onClick={()=>setMovieTiming(val,v)}
                                                                         sx={{padding:"10px 0px",justifyContent:"center",display:"flex",flexWrap:"wrap",alignItems:"center",fontSize:"12px",color:"green",border:"1px solid green",borderRadius:"12px"}}>
                                                                         {v}
                                                                     </Typography>  

@@ -1,4 +1,4 @@
- import { Nav } from "./Nav"
+import { Nav } from "./Nav"
 import { CarouselImg } from "./Carousel_img"
 import { Carousel_Recommended } from "./Carousel_Recommended"
 import { Carousel_Type } from "./Carousel-type"
