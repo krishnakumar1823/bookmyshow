@@ -616,7 +616,7 @@ export const Ticket=()=>{
                                                         :
                                                             <TableCell className="hoverSeat" sx={{padding:"0px",borderWidth:"0px"}}>
                                                                 <Box id={v.keyy} className="seatI" onClick={()=>book(v.keyy)}>
-                                                                    <a style={{cursor:"pointer"}}>{v.number}</a>
+                                                                    <a href style={{cursor:"pointer"}}>{v.number}</a>
                                                                 </Box>    
                                                             </TableCell> 
                                                         

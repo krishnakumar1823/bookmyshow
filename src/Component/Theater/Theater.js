@@ -73,11 +73,12 @@ export const Theater=()=>{
         setmovName(z)
 
         var viewCurrentdate=new Date()
-        var currentHour=viewCurrentdate.getHours()
+        // var currentHour=viewCurrentdate.getHours()
         var currentMins=viewCurrentdate.getMinutes()
 
         
-        var a=currentHour.toString()
+        // var a=currentHour.toString()
+        var a=10
         var b=currentMins.toString()
         var c=a+b
         
