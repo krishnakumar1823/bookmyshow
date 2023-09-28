@@ -248,13 +248,7 @@ export const Ticket=()=>{
         }  
     }
     useEffect(()=>{          
-        access()  
-    },[movieIds])
-
-
-    const access=()=>{ 
-        if(state.ticketArray.length>0){ 
-            // console.log(state.ticketArray)
+        if(state.ticketArray.length>0){  
             var x=[...state.ticketArray[0].movId.Ticket]
             var z=movieIds
             
@@ -275,7 +269,6 @@ export const Ticket=()=>{
                     }
                 }
             }    
-            // console.log(x_mapping_false)
             var obj={
                 movId:
                     {
@@ -315,15 +308,11 @@ export const Ticket=()=>{
                 theaterTiming:state.ticketArray[0].theaterTiming,
                 theaterTimingString:state.ticketArray[0].theaterTimingString
             } 
-            setSeatSoldList([obj])
-            // console.log(obj)
+            setSeatSoldList([obj]) 
         } 
-    }
-    useEffect(()=>{
-        hoverColor()
-    },[newTrueObjects])
+    },[movieIds,dispatch,state.ticketArray])
 
-    const hoverColor=()=>{ 
+    useEffect(()=>{
         if(movieIds.length>0){
             var gettorf=[...state.ticketArray[0].movId.Ticket]
             console.log(gettorf)
@@ -337,7 +326,8 @@ export const Ticket=()=>{
                 }
             }
         }
-    }
+    },[newTrueObjects,movieIds.length,state.ticketArray])
+
 
     const pageRender=useNavigate()
     const moveToCheckout=()=>{
@@ -374,8 +364,6 @@ export const Ticket=()=>{
 
 
 
-
-
     //IMAGE 
     const imgshow=(val)=>{  
         let d=state.arrayTicketCount.map((v)=>{
@@ -406,9 +394,6 @@ export const Ticket=()=>{
         }
     }
     useEffect(()=>{
-        accessImg(Count)
-    },[Count])
-    const accessImg=()=>{
         var setImg=document.getElementById("setImg")
         if(Count>0){  
             switch(Count){
@@ -451,9 +436,13 @@ export const Ticket=()=>{
                 case 10:
                     setImg.setAttribute("src",`${require("../Image/van.png")}`)
                     break;
+                default:
+                    setImg.setAttribute("src",`${require("../Image/van.png")}`)
             }
         }
-    } 
+    },[Count])
+ 
+
     const seatConform=()=>{
         setCount(Count)
         setOpen(false)
@@ -575,16 +564,16 @@ export const Ticket=()=>{
                             </Typography>
                         </Box>
                         <Box sx={{display:"flex",justifyContent:"center"}} className="seat-count" py={2}>
-                            <input onMouseEnter={()=>imgshow("1")} id="1" value="1" readOnly></input>
-                            <input onMouseEnter={()=>imgshow("2")} id="2" value="2" readOnly></input>
-                            <input onMouseEnter={()=>imgshow("3")} id="3" value="3" readOnly></input>
-                            <input onMouseEnter={()=>imgshow("4")} id="4" value="4" readOnly></input>
-                            <input onMouseEnter={()=>imgshow("5")} id="5" value="5" readOnly></input>
-                            <input onMouseEnter={()=>imgshow("6")} id="6" value="6" readOnly></input>
-                            <input onMouseEnter={()=>imgshow("7")} id="7" value="7" readOnly></input>
-                            <input onMouseEnter={()=>imgshow("8")} id="8" value="8" readOnly></input>
-                            <input onMouseEnter={()=>imgshow("9")} id="9" value="9" readOnly></input>
-                            <input onMouseEnter={()=>imgshow("10")} id="10" value="10" readOnly></input>
+                            <input onMouseOverCapture={()=>imgshow("1")} id="1" value="1" readOnly></input>
+                            <input onMouseOverCapture={()=>imgshow("2")} id="2" value="2" readOnly></input>
+                            <input onMouseOverCapture={()=>imgshow("3")} id="3" value="3" readOnly></input>
+                            <input onMouseOverCapture={()=>imgshow("4")} id="4" value="4" readOnly></input>
+                            <input onMouseOverCapture={()=>imgshow("5")} id="5" value="5" readOnly></input>
+                            <input onMouseOverCapture={()=>imgshow("6")} id="6" value="6" readOnly></input>
+                            <input onMouseOverCapture={()=>imgshow("7")} id="7" value="7" readOnly></input>
+                            <input onMouseOverCapture={()=>imgshow("8")} id="8" value="8" readOnly></input>
+                            <input onMouseOverCapture={()=>imgshow("9")} id="9" value="9" readOnly></input>
+                            <input onMouseOverCapture={()=>imgshow("10")} id="10" value="10" readOnly></input>
                         </Box>
                         <Box className="seat-count" sx={{textAlign:"center"}}>
                             <button className="col-5" type="submit" onClick={()=>seatConform()}>Select Seats</button>
