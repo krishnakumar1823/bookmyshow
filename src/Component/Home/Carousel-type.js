@@ -3,7 +3,7 @@ import { useSelector } from "react-redux"
 import Slider from "react-slick";
 import "./Home.scss"
 
-export const Carousel_Type=()=>{
+export const CarouselType=()=>{
     const state=useSelector(
         ({data})=>data
     ) 
@@ -50,7 +50,7 @@ export const Carousel_Type=()=>{
         return (
           <div
             className={className}
-            style={{ ...style, display: "block", background: "rgb(187 187 187)",height:"50px",width:"50px",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center" }}
+            style={{ ...style, background: "rgb(187 187 187)",height:"50px",width:"50px",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center" }}
             onClick={onClick}
           />
         );
@@ -61,7 +61,7 @@ export const Carousel_Type=()=>{
         return (
           <div
             className={className}
-            style={{ ...style, display: "block", background: "rgb(187 187 187)",height:"50px",width:"50px",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center" }}
+            style={{ ...style, background: "rgb(187 187 187)",height:"50px",width:"50px",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center" }}
             onClick={onClick}
           />
         );
@@ -84,7 +84,7 @@ export const Carousel_Type=()=>{
                         return(
                             <Box key={ind}>
                                 <Box style={{padding:"0px 10px",cursor:"pointer"}} >
-                                    <img src={val} style={{borderRadius: "6px",width: "100%"}}/>
+                                    <img src={val} style={{borderRadius: "6px",width: "100%"}} alt="img"/>
                                 </Box>
                             </Box>
                         )

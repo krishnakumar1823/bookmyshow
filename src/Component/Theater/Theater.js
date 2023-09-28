@@ -34,7 +34,7 @@ export const Theater=()=>{
     const[dayArr,setDayArr]=useState([])
     const[yearArr,setYearArr]=useState([])
     const[todatDate,settodayDate]=useState(0)
-    const[gotbyParam,setGotByParam]=useState("")
+    // const[gotbyParam,setGotByParam]=useState("")
     const[location,setLocation]=useState(true)
     const[theaterAvailability,setTheaterAvailability]=useState(true)
     const dispatch=useDispatch()
@@ -47,7 +47,7 @@ export const Theater=()=>{
         else{
             setLocation(false)
         }
-    }) 
+    },[state.defaultLocation]) 
 
     //setting theater availability true or false
     useEffect(()=>{
@@ -57,14 +57,14 @@ export const Theater=()=>{
         else{
             setTheaterAvailability(false)
         }
-    })   
+    },[theaters.length])   
 
     //setting time llive 
     useEffect(()=>{
         let x=[...state.theater]
 
         var gettingMovieFromParam=param.get('movId')
-        setGotByParam(gettingMovieFromParam)
+        // setGotByParam(gettingMovieFromParam)
 
         let y=[...state.array_recommended]
         let z=y.find((val)=>{
@@ -85,16 +85,16 @@ export const Theater=()=>{
             if(a.length===1){
                 var splitA=a.split("")
                 splitA.splice(0,0,"0")
-                var a=splitA.join("")
+                a=splitA.join("")
             }
             else{ 
                 var splitB=b.split("")
                 splitB.splice(0,0,"0")
-                var b=splitB.join("")
+                b=splitB.join("")
             }
         }
         //Resetting c again 
-        var c=a+b 
+        c=a+b
 
         //see current time in console
         console.log(c)
@@ -129,7 +129,7 @@ export const Theater=()=>{
         
         let splitMtpye=z.mtype.split(",")
         setMtype(splitMtpye)
-    },[]) 
+    },[param,state.array_recommended,state.theater]) 
 
     const Search = styled('div')(({ theme }) => ({
         position: 'relative',
@@ -212,7 +212,6 @@ export const Theater=()=>{
 
         //Year
         var yearArray=[]
-        var count=0
         for(var y=0;y<7;y++){ 
             yearArray[yearArray.length]=year
             
@@ -339,10 +338,11 @@ export const Theater=()=>{
                                     </Typography>
                                 </Box>
                                 <Box sx={{display:"flex",flexWrap:"wrap"}}>
-                                    {movType.map((val)=>{
+                                    {movType.map((val,i)=>{ 
                                         return(
                                             <Typography
                                                 component="p" 
+                                                key={i}
                                                 sx={{margin:{xs:"10px 10px 10px 0px",md:"0px 5px"},color:"gray",border:"1px solid gray",display:"flex",flexWrap:"wrap",alignItems:"center",justifyContent:"center",fontSize:"10px",fontWeight:800,padding:"0px 15px",borderRadius:"20px",textTransform:"uppercase"}}>
                                                 {val}
                                             </Typography>
@@ -363,7 +363,7 @@ export const Theater=()=>{
                                         <Slider {...settings}>
                                             {dayArr.map((val,ind)=>{
                                                 return(
-                                                    <Box className="dateCarousel" key={ind} sx={{color:"black",textAlign:"center",color:todatDate===dateArr[ind] ? "white":"black",backgroundColor:todatDate===dateArr[ind] ? "rgb(236, 94, 113)":"",borderRadius:"6px",cursor:"pointer"}}>
+                                                    <Box className="dateCarousel" key={ind} sx={{textAlign:"center",color:todatDate===dateArr[ind] ? "white":"black",backgroundColor:todatDate===dateArr[ind] ? "rgb(236, 94, 113)":"",borderRadius:"6px",cursor:"pointer"}}>
                                                         <Typography 
                                                             component="p"
                                                             sx={{fontSize:"13px",fontWeight:600}}>

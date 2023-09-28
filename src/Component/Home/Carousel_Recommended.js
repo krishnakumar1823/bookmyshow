@@ -1,12 +1,12 @@
-import { useDispatch, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import { Box, Container, Typography } from "@mui/material";
 import { useNavigate } from "react-router";
-import { updateTicketArray, updateduplicateTheaterSeat } from "../Redux/Redux";
 
-export const Carousel_Recommended=()=>{
+
+export const CarouselRecommended=()=>{
     const state=useSelector(
         ({data})=>data
     )
@@ -52,7 +52,7 @@ export const Carousel_Recommended=()=>{
         return (
           <div
             className={className}
-            style={{ ...style, display: "block", background: "rgb(187 187 187)",height:"50px",width:"50px",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center" }}
+            style={{ ...style, background: "rgb(187 187 187)",height:"50px",width:"50px",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center" }}
             onClick={onClick}
           />
         );
@@ -63,13 +63,11 @@ export const Carousel_Recommended=()=>{
         return (
           <div
             className={className}
-            style={{ ...style, display: "block", background: "rgb(187 187 187)",height:"50px",width:"50px",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center" }}
+            style={{ ...style, background: "rgb(187 187 187)",height:"50px",width:"50px",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center" }}
             onClick={onClick}
           />
         );
       }
-
-      const dispatch=useDispatch()
 
       //PAGE RENDER
       const pageRender=useNavigate()

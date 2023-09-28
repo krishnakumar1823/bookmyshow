@@ -5,7 +5,7 @@ import { useNavigate, useSearchParams } from "react-router-dom"
 import { Footer } from "../Home/Footer"
 import { Nav } from "../Home/Nav"
 import { useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 import { Box, Container, Divider, Typography } from "@mui/material"  
 import { BsFillPlayFill,BsStarFill } from "react-icons/bs";
 import "./Details.scss" 
@@ -18,7 +18,7 @@ export const Details=()=>{
     const[movieCast,setmovieCast]=useState([])
     const[movieCastName,setmovieCastName]=useState([])
     const[movieCastRole,setmovieCastRole]=useState([])
-    const[castLength,setCastLength]=useState(0)
+    // const[castLength,setCastLength]=useState(0)
     const[movieCrew,setmovieCrew]=useState([])
     const[movieCrewName,setmovieCrewName]=useState([])
     const[movieCrewRole,setmovieCrewRole]=useState([])
@@ -47,13 +47,13 @@ export const Details=()=>{
         setmovieCast(y.cast)
         setmovieCastName(y.castName)
         setmovieCastRole(y.castrole)
-        setCastLength(y.cast.length)
+        // setCastLength(y.cast.length)
 
         //MOVIE CREW
         setmovieCrew(y.crewImg)
         setmovieCrewName(y.crewName)
         setmovieCrewRole(y.crewrole)
-    },[]) 
+    },[param,state.array_cast,state.array_recommended]) 
     
 
     //SCROLL FUNCTION
@@ -126,7 +126,7 @@ export const Details=()=>{
         return (
           <div
             className={className}
-            style={{ ...style, display: "block", background: "rgb(187 187 187)",height:"50px",width:"50px",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center" }}
+            style={{ ...style, background: "rgb(187 187 187)",height:"50px",width:"50px",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center" }}
             onClick={onClick}
           />
         );
@@ -137,7 +137,7 @@ export const Details=()=>{
         return (
           <div
             className={className}
-            style={{ ...style, display: "block", background: "rgb(187 187 187)",height:"50px",width:"50px",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center" }}
+            style={{ ...style, background: "rgb(187 187 187)",height:"50px",width:"50px",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center" }}
             onClick={onClick}
           />
         );
@@ -319,7 +319,7 @@ export const Details=()=>{
                     <Typography 
                             component="h1"
                             variant="h5"
-                            sx={{borderRadius: "6px",fontWeight:600,borderRadius:"50%",color:"black"}}
+                            sx={{borderRadius: "6px",fontWeight:600,color:"black"}}
                             pt={2}
                         > 
                         Cast
@@ -334,13 +334,13 @@ export const Details=()=>{
                                         <Typography 
                                             component="img"
                                             src={movieCast[ind].cast}
-                                            sx={{borderRadius: "6px",width: "130px",height:"130px",borderRadius:"50%",margin:"0px auto"}}
+                                            sx={{width: "130px",height:"130px",borderRadius:"50%",margin:"0px auto"}}
                                         >
                                         </Typography>     
 
                                         <Typography 
                                             component="p"
-                                            sx={{borderRadius: "6px",borderRadius:"50%",color:"black"}}
+                                            sx={{borderRadius: "6px",color:"black"}}
                                             pt={2}
                                         >
                                         {movieCastName[ind].castName}
@@ -348,7 +348,7 @@ export const Details=()=>{
 
                                         <Typography 
                                             component="p"
-                                            sx={{borderRadius: "6px",borderRadius:"50%",color:"gray",fontSize:"12px"}}
+                                            sx={{borderRadius: "6px",color:"gray",fontSize:"12px"}}
                                         >
                                         {movieCastRole[ind].castrole}
                                         </Typography>    
@@ -366,7 +366,7 @@ export const Details=()=>{
                     <Typography 
                             component="h1"
                             variant="h5"
-                            sx={{borderRadius: "6px",fontWeight:600,borderRadius:"50%",color:"black"}}
+                            sx={{borderRadius: "6px",fontWeight:600,color:"black"}}
                             pt={2}
                         > 
                         Crew
@@ -381,13 +381,13 @@ export const Details=()=>{
                                         <Typography 
                                             component="img"
                                             src={movieCrew[ind].crewImg}
-                                            sx={{borderRadius: "6px",width: "130px",height:"130px",borderRadius:"50%",margin:"0px auto"}}
+                                            sx={{width: "130px",height:"130px",borderRadius:"50%",margin:"0px auto"}}
                                         >
                                         </Typography>     
 
                                         <Typography 
                                             component="p"
-                                            sx={{borderRadius: "6px",borderRadius:"50%",color:"black"}}
+                                            sx={{borderRadius: "6px",color:"black"}}
                                             pt={2}
                                         >
                                         {movieCrewName[ind].crewName}
@@ -395,7 +395,7 @@ export const Details=()=>{
 
                                         <Typography 
                                             component="p"
-                                            sx={{borderRadius: "6px",borderRadius:"50%",color:"gray",fontSize:"12px"}}
+                                            sx={{borderRadius: "6px",color:"gray",fontSize:"12px"}}
                                         >
                                         {movieCrewRole[ind].crewrole}
                                         </Typography>    

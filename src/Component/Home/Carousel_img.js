@@ -60,7 +60,7 @@ export const CarouselImg=()=>{
         return (
           <div
             className={className}
-            style={{ ...style, display: "block",
+            style={{ ...style,
                      background: "rgba(0, 0, 0, 0.8)",
                     padding:"15px 15px 15px 15px",
                     borderTopLeftRadius:"12px",
@@ -79,7 +79,7 @@ export const CarouselImg=()=>{
         return (
           <div
             className={className}
-            style={{ ...style, display: "block",
+            style={{ ...style,
                      background: "rgba(0, 0, 0, 0.5)",
                      padding:"15px 15px 15px 10px",
                      borderTopRightRadius:"12px",

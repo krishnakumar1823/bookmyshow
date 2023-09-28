@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, useSearchParams } from "react-router-dom"
-import { Box, Button, Container, Fade, Input, Modal, Paper, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from "@mui/material"
+import { Box, Container, Fade, Modal, Paper, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from "@mui/material"
 import "./Ticket.scss"
 import { useEffect, useState } from "react"
 import { updateTicketArray } from "../Redux/Redux"
@@ -15,7 +15,6 @@ export const Ticket=()=>{
     const[param]=useSearchParams()
     const[theaterSeats,setTheaterSeats]=useState([]) 
     const[movieIds,setMovieIds]=useState([])
-    const[makingTrue,setMakingTrue]=useState({}) 
     const[newTrueObjects,setnewTrueObjects]=useState({})
     const[iCount,setIcount]=useState(0)
     const[seatSoldList,setSeatSoldList]=useState([])
@@ -42,23 +41,24 @@ export const Ticket=()=>{
         setTheaterNamePrinting(x[0].theaterName) 
 
         if(x[0].movId.seatSoldornot.length>0){
-            x[0].movId.seatSoldornot.map((val)=>{
-                if(val.availability===true){
-                    var blockId=document.getElementById(val.keyy)
+            var newY=x[0].movId.seatSoldornot
+            for(var newI=0;newI<newY.length;newI++){ 
+                if(newY[newI].availability===true){
+                    var blockId=document.getElementById(newY[newI].keyy)
                     blockId.classList.remove("seatI")
                     blockId.classList.add("seat-booked")
                 }
-            })
+            }
         }
 
         let movNamePrint=state.array_recommended
-        for(var i=0;i<movNamePrint.length;i++){
-            if(movNamePrint[i].mid===gettingMovieFromParam){
-                setMovieNamePrinting(movNamePrint[i].mname)
+        for(var mp=0;mp<movNamePrint.length;mp++){
+            if(movNamePrint[mp].mid===gettingMovieFromParam){
+                setMovieNamePrinting(movNamePrint[mp].mname)
                 console.log(movNamePrint)
             }
         } 
-    },[])   
+    },[param,state.array_recommended,state.duplicateTheaterSeat])   
     
     dispatch(updateTicketArray(theaterSeats))    
  
@@ -80,7 +80,7 @@ export const Ticket=()=>{
         var storagetorf=state.ticketArray[0].movId.Ticket
         var z=[...state.ticketArray[0].movId.movIds]
         if(z.length===0){ 
-            var i=i-1
+            i=i-1
             var a=[]
             for(var j=0;j<=i;j++){
                 if(makestr.length===1){
@@ -88,32 +88,28 @@ export const Ticket=()=>{
                     existingId.pop()
 
                     existingId.push(search+j)
-                    let joinn=existingId.join("")
+                    var joinn=existingId.join("")
                     var checkavailable=state.ticketArray[0].movId.Ticket
                     
-
-                    var checkingIds=checkavailable.filter((val)=>{
-                        return val.keyy===joinn
-                    })
-                
-                    if(checkingIds.length===1){ 
-                        a.push(joinn) 
+                    for(var idCheck=0;idCheck<checkavailable.length;idCheck++){
+                        if(checkavailable[idCheck].keyy===joinn){
+                            a.push(joinn) 
+                        }
                     }
                 }
                 else{
-                    var existingId=idd.split('')
+                    existingId=idd.split('')
                     existingId.pop()
                     existingId.pop()
 
                     existingId.push(search+j)
-                    var joinn=existingId.join("")
-                    var checkavailable=state.ticketArray[0].movId.Ticket
+                    joinn=existingId.join("")
+                    checkavailable=state.ticketArray[0].movId.Ticket
 
-                    var checkingIds=checkavailable.filter((val)=>{
-                        return val.keyy===joinn
-                    })
-                    if(checkingIds.length===1){
-                        a.push(joinn)
+                    for(idCheck=0;idCheck<checkavailable.length;idCheck++){
+                        if(checkavailable[idCheck].keyy===joinn){
+                            a.push(joinn) 
+                        }
                     }
                 }
             }  
@@ -131,8 +127,7 @@ export const Ticket=()=>{
                 theaterName:state.ticketArray[0].theaterName,
                 theaterTiming:state.ticketArray[0].theaterTiming,
                 theaterTimingString:state.ticketArray[0].theaterTimingString
-            }
-            setMakingTrue(obj)
+            } 
             dispatch(updateTicketArray([obj])) 
             setTheaterSeats([obj])
         }
@@ -141,45 +136,42 @@ export const Ticket=()=>{
             var newcount=movieIds 
 
             if(newcount.length-1 === i-1){  
-                var i=i-1
-                var a=[]
-                for(var j=0;j<=i;j++){
+                i=i-1
+                a=[]
+                for(j=0;j<=i;j++){
                     if(makestr.length===1){
-                        var existingId=idd.split('')
+                        existingId=idd.split('')
                         existingId.pop()
     
                         existingId.push(search+j)
-                        let joinn=existingId.join("")
-                        var checkavailable=state.ticketArray[0].movId.Ticket
+                        joinn=existingId.join("")
+                        checkavailable=state.ticketArray[0].movId.Ticket
                         
     
-                        var checkingIds=checkavailable.filter((val)=>{
-                            return val.keyy===joinn
-                        })
-                    
-                        if(checkingIds.length===1){ 
-                            a.push(joinn) 
+                        for(idCheck=0;idCheck<checkavailable.length;idCheck++){
+                            if(checkavailable[idCheck].keyy===joinn){
+                                a.push(joinn) 
+                            }
                         }
                     }
                     else{
-                        var existingId=idd.split('')
+                        existingId=idd.split('')
                         existingId.pop()
                         existingId.pop()
     
                         existingId.push(search+j)
-                        var joinn=existingId.join("")
-                        var checkavailable=state.ticketArray[0].movId.Ticket
+                        joinn=existingId.join("")
+                        checkavailable=state.ticketArray[0].movId.Ticket
     
-                        var checkingIds=checkavailable.filter((val)=>{
-                            return val.keyy===joinn
-                        })
-                        if(checkingIds.length===1){
-                            a.push(joinn)
+                        for(idCheck=0;idCheck<checkavailable.length;idCheck++){
+                            if(checkavailable[idCheck].keyy===joinn){
+                                a.push(joinn) 
+                            }
                         }
                     }
                 } 
                 setMovieIds(a)
-                var obj={
+                obj={
                     movId:
                         {
                             mid:state.ticketArray[0].movId.mid,
@@ -197,49 +189,46 @@ export const Ticket=()=>{
                 setTheaterSeats([obj])
             }
             else{
-                var newcount=storagetorf.filter((val)=>{
+                var newcountt=storagetorf.filter((val)=>{
                     return val.torf===true
                 })
-                var i=i-newcount.length
-                var a=[]
+                i=i-newcountt.length
+                a=[]
 
-                for(var j=0;j<i;j++){
+                for(j=0;j<i;j++){
                     if(makestr.length===1){
-                        var existingId=idd.split('')
+                        existingId=idd.split('')
                         existingId.pop()
 
                         existingId.push(search+j)
-                        let joinn=existingId.join("") 
-                        var checkavailable=state.ticketArray[0].movId.Ticket
+                        joinn=existingId.join("") 
+                        checkavailable=state.ticketArray[0].movId.Ticket
                         
 
-                        var checkingIds=checkavailable.filter((val)=>{
-                            return val.keyy===joinn
-                        })
-                    
-                        if(checkingIds.length===1){ 
-                            a.push(joinn) 
+                        for(idCheck=0;idCheck<checkavailable.length;idCheck++){
+                            if(checkavailable[idCheck].keyy===joinn){
+                                a.push(joinn) 
+                            }
                         }
                     }
                     else{
-                        var existingId=idd.split('')
+                        existingId=idd.split('')
                         existingId.pop()
                         existingId.pop()
 
                         existingId.push(search+j)
-                        var joinn=existingId.join("") 
-                        var checkavailable=state.ticketArray[0].movId.Ticket
+                        joinn=existingId.join("") 
+                        checkavailable=state.ticketArray[0].movId.Ticket
 
-                        var checkingIds=checkavailable.filter((val)=>{
-                            return val.keyy===joinn
-                        })
-                        if(checkingIds.length===1){
-                            a.push(joinn)
+                        for(idCheck=0;idCheck<checkavailable.length;idCheck++){
+                            if(checkavailable[idCheck].keyy===joinn){
+                                a.push(joinn) 
+                            }
                         }
                     }
                 }
                 setMovieIds(movieIds.concat(a))
-                var obj={
+                obj={
                     movId:
                         {
                             mid:state.ticketArray[0].movId.mid,
@@ -265,7 +254,7 @@ export const Ticket=()=>{
 
     const access=()=>{ 
         if(state.ticketArray.length>0){ 
-            console.log(state.ticketArray)
+            // console.log(state.ticketArray)
             var x=[...state.ticketArray[0].movId.Ticket]
             var z=movieIds
             
@@ -286,7 +275,7 @@ export const Ticket=()=>{
                     }
                 }
             }    
-            console.log(x_mapping_false)
+            // console.log(x_mapping_false)
             var obj={
                 movId:
                     {
@@ -312,7 +301,7 @@ export const Ticket=()=>{
                     seatSold[seatSold.length]=gettorf[d]
                 }
             }
-            var obj={
+            obj={
             movId:
                 {
                     mid:state.ticketArray[0].movId.mid,
@@ -327,7 +316,7 @@ export const Ticket=()=>{
                 theaterTimingString:state.ticketArray[0].theaterTimingString
             } 
             setSeatSoldList([obj])
-            console.log(obj)
+            // console.log(obj)
         } 
     }
     useEffect(()=>{
@@ -406,8 +395,9 @@ export const Ticket=()=>{
                     return v
                 }
                 else{
-                    var setcount=document.getElementById(v.keyy)
-                    setcount.setAttribute("class","")
+                    var setcountt=document.getElementById(v.keyy)
+                    setcountt.setAttribute("class","")
+                    return ""
                 }
             }) 
             if(e[0]){ 
@@ -420,7 +410,6 @@ export const Ticket=()=>{
     },[Count])
     const accessImg=()=>{
         var setImg=document.getElementById("setImg")
-        var a=[]
         if(Count>0){  
             switch(Count){
                 case 1:
@@ -473,7 +462,6 @@ export const Ticket=()=>{
         setOpen(true)
 
         var x=[...state.ticketArray[0].movId.Ticket]
-        var z=movieIds
         
         var x_mapping_false=x.map((val)=>{
             return val!=="" ? {...val,torf:false,availability:false} : ""
@@ -517,7 +505,7 @@ export const Ticket=()=>{
                                     <Box sx={{width:"100%",display:"flex",alignItems:"center",flexWrap:"wrap"}}>
                                     <Typography
                                             component="p"
-                                            sx={{margin:"0px 10px 0px 0px",width:"10%",fontSize:"12px",color:"gray",height:"20px",width:"20px",borderRadius:"50%",border:"1px solid gray",display:"flex",alignItems:"center",flexWrap:"wrap",justifyContent:"center"}}>
+                                            sx={{margin:"0px 10px 0px 0px",fontSize:"12px",color:"gray",height:"20px",width:"20px",borderRadius:"50%",border:"1px solid gray",display:"flex",alignItems:"center",flexWrap:"wrap",justifyContent:"center"}}>
                                         A
                                         </Typography>
 

@@ -1,6 +1,6 @@
-import { Box, Container, List, ListItem, Typography } from "@mui/material"
+import { Box, Container, Typography } from "@mui/material"
 import { useDispatch, useSelector } from "react-redux"
-import { updateTheater, updateTicketArray, updateduplicateTheaterSeat } from "../Redux/Redux"
+import { updateTheater, updateTicketArray } from "../Redux/Redux"
 import { useNavigate } from "react-router"
 import { useEffect, useState } from "react"
 import { SlArrowLeft } from "react-icons/sl";
@@ -14,12 +14,12 @@ export const Checkout=()=>{
         ({data})=>data
     ) 
     const dispatch=useDispatch()
-    const[dupliacte,setDuplicate]=useState(state.theater)
+    // const[dupliacte,setDuplicate]=useState(state.theater)
     const[modifiedOriginalArray,setModifiedOriginalArray]=useState([])
     const[movieNamePrinting,setMovieNamePrinting]=useState("")
     const[theaterNamePrinting,setTheaterNamePrinting]=useState("")
     const[param]=useSearchParams()
-    const[ticketsPrinting,setTicketsPrinting]=useState(state.ticketArray[0].movId.movIds)
+    const[ticketsPrinting]=useState(state.ticketArray[0].movId.movIds)
     const[bookingStatus,setbookingStatus]=useState(true)
 
     console.log(ticketsPrinting)
@@ -36,17 +36,22 @@ export const Checkout=()=>{
 			image: "https://tse1.mm.bing.net/th?id=OIP.9AYmKZc1L7auvVNBeGxLzQHaEK&pid=Api&P=0&h=180", 
 			handler: function (response){
 				if(response.razorpay_payment_id!==""){
-                            //deleting the original array if availability is true
+
+                    //deleting the original array if availability is true
                     var deleteBlockedIds=[...state.ticketArray[0].movId.seatSoldornot]
                     console.log(deleteBlockedIds)
                     var make=[...state.ticketArray[0].movId.Ticket]
-                    for(var i=0;i<deleteBlockedIds.length;i++){    
-                        var deletionupdate=make.filter((v,ind)=>{
+
+                    // for(var i=0;i<deleteBlockedIds.length;i++){
+                    deleteBlockedIds.map((val,i)=>(    
+                        make.filter((v,ind)=>{
                             if(v.keyy===deleteBlockedIds[i].keyy){
                                 make.splice(ind,1)
                             }
+                            return false
                         })
-                    } 
+                    ))
+                    // } 
                     // setTicketsPrinting(make)
 
                     //TICKET ARRAY MODIFICATION
@@ -79,7 +84,7 @@ export const Checkout=()=>{
                             var movIdCount=state.theater[i].movId
                             for(var j=0;j<movIdCount.length;j++){
                                 if(movIdCount[j].mid===movIdd){ 
-                                    var obj={
+                                    var objj={
                                                 mid:state.ticketArray[0].movId.mid,
                                                 Ticket:make,
                                                 movIds:state.ticketArray[0].movId.movIds,
@@ -87,7 +92,7 @@ export const Checkout=()=>{
                                                 seatSoldornot:state.ticketArray[0].movId.seatSoldornot
                                             }
                                 var newX=[...state.theater[i].movId]
-                                newX.splice(j,1,obj) 
+                                newX.splice(j,1,objj) 
 
                                 var newY=Object.assign({},state.theater[i]) 
                                 newY.movId=newX
@@ -134,7 +139,7 @@ export const Checkout=()=>{
                 console.log(movNamePrint)
             }
         } 
-    },[])   
+    },[param,state.array_recommended,state.duplicateTheaterSeat])   
 
     const moveBack=()=>{
         pageRender(`/`)
@@ -158,7 +163,7 @@ export const Checkout=()=>{
                                     <Box sx={{width:"95%",display:"flex",alignItems:"center",flexWrap:"wrap"}}>
                                     <Typography
                                             component="p"
-                                            sx={{margin:"0px 10px 0px 0px",width:"10%",fontSize:"12px",color:"gray",height:"20px",width:"20px",borderRadius:"50%",border:"1px solid gray",display:"flex",alignItems:"center",flexWrap:"wrap",justifyContent:"center"}}>
+                                            sx={{margin:"0px 10px 0px 0px",fontSize:"12px",color:"gray",height:"20px",width:"20px",borderRadius:"50%",border:"1px solid gray",display:"flex",alignItems:"center",flexWrap:"wrap",justifyContent:"center"}}>
                                         A
                                         </Typography>
 
