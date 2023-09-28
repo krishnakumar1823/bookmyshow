@@ -22,7 +22,7 @@ export const Checkout=()=>{
     const[ticketsPrinting]=useState(state.ticketArray[0].movId.movIds)
     const[bookingStatus,setbookingStatus]=useState(true)
 
-    console.log(ticketsPrinting)
+    // console.log(ticketsPrinting)
     
     const proceed=()=>{
         var amt= 120*ticketsPrinting.length+70.80
@@ -39,10 +39,9 @@ export const Checkout=()=>{
 
                     //deleting the original array if availability is true
                     var deleteBlockedIds=[...state.ticketArray[0].movId.seatSoldornot]
-                    console.log(deleteBlockedIds)
+                    // console.log(deleteBlockedIds)
                     var make=[...state.ticketArray[0].movId.Ticket]
 
-                    // for(var i=0;i<deleteBlockedIds.length;i++){
                     deleteBlockedIds.map((val,i)=>(    
                         make.filter((v,ind)=>{
                             if(v.keyy===deleteBlockedIds[i].keyy){
@@ -51,7 +50,6 @@ export const Checkout=()=>{
                             return false
                         })
                     ))
-                    // } 
                     // setTicketsPrinting(make)
 
                     //TICKET ARRAY MODIFICATION
@@ -70,7 +68,7 @@ export const Checkout=()=>{
                             theaterTimingString:state.ticketArray[0].theaterTimingString
                         } 
                     dispatch(updateTicketArray([obj]))
-                    console.log(obj)
+                    // console.log(obj)
 
                     //ORIGINAL ARRAY MODIFICATION
                     var movIdd=state.ticketArray[0].movId.mid
@@ -101,7 +99,7 @@ export const Checkout=()=>{
                                 newZ.splice(i,1,newY)
 
                                 //see console the original array is modified
-                                console.log(newZ)
+                                // console.log(newZ)
                                 setModifiedOriginalArray(newZ)
                                 }
                             }
@@ -136,7 +134,7 @@ export const Checkout=()=>{
         for(var i=0;i<movNamePrint.length;i++){
             if(movNamePrint[i].mid===gettingMovieFromParam){
                 setMovieNamePrinting(movNamePrint[i].mname)
-                console.log(movNamePrint)
+                // console.log(movNamePrint)
             }
         } 
     },[param,state.array_recommended,state.duplicateTheaterSeat])   

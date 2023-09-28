@@ -36,7 +36,7 @@ export const Ticket=()=>{
         let x=theaterWithMovie.filter((val)=>{
             return val.theaterName===gettingTheaterFromParam ? val : ""
         })  
-        console.log(x)
+        // console.log(x)
         setTheaterSeats(x) 
         setTheaterNamePrinting(x[0].theaterName) 
 
@@ -55,7 +55,7 @@ export const Ticket=()=>{
         for(var mp=0;mp<movNamePrint.length;mp++){
             if(movNamePrint[mp].mid===gettingMovieFromParam){
                 setMovieNamePrinting(movNamePrint[mp].mname)
-                console.log(movNamePrint)
+                // console.log(movNamePrint)
             }
         } 
     },[param,state.array_recommended,state.duplicateTheaterSeat])   
@@ -310,12 +310,12 @@ export const Ticket=()=>{
             } 
             setSeatSoldList([obj]) 
         } 
-    },[movieIds,dispatch,state.ticketArray])
+    },[movieIds])
 
     useEffect(()=>{
         if(movieIds.length>0){
             var gettorf=[...state.ticketArray[0].movId.Ticket]
-            console.log(gettorf)
+            // console.log(gettorf)
             for(var d=0;d<gettorf.length;d++){
                 var makeBooking=document.getElementById(gettorf[d].keyy)
                 if(gettorf[d].torf === true){
@@ -326,7 +326,7 @@ export const Ticket=()=>{
                 }
             }
         }
-    },[newTrueObjects,movieIds.length,state.ticketArray])
+    },[newTrueObjects])
 
 
     const pageRender=useNavigate()
@@ -364,6 +364,8 @@ export const Ticket=()=>{
 
 
 
+
+
     //IMAGE 
     const imgshow=(val)=>{  
         let d=state.arrayTicketCount.map((v)=>{
@@ -394,6 +396,9 @@ export const Ticket=()=>{
         }
     }
     useEffect(()=>{
+        accessImg(Count)
+    },[Count])
+    const accessImg=()=>{
         var setImg=document.getElementById("setImg")
         if(Count>0){  
             switch(Count){
@@ -440,8 +445,8 @@ export const Ticket=()=>{
                     setImg.setAttribute("src",`${require("../Image/van.png")}`)
             }
         }
-    },[Count])
- 
+    } 
+
 
     const seatConform=()=>{
         setCount(Count)

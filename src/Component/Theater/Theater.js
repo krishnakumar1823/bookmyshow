@@ -98,7 +98,7 @@ export const Theater=()=>{
         c=a+b
 
         //see current time in console
-        console.log(c)
+        // console.log(c)
         
         var theaterTimingUpdation=[]
         var renderCurrentTime=[]
