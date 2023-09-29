@@ -15,7 +15,7 @@ export const Ticket=()=>{
     const[param]=useSearchParams()
     const[theaterSeats,setTheaterSeats]=useState([]) 
     const[movieIds,setMovieIds]=useState([])
-    const[newTrueObjects,setnewTrueObjects]=useState({})
+    const[newTrueObjects,setnewTrueObjects]=useState([])
     const[iCount,setIcount]=useState(0)
     const[seatSoldList,setSeatSoldList]=useState([])
     const[movieNamePrinting,setMovieNamePrinting]=useState("")
@@ -25,6 +25,7 @@ export const Ticket=()=>{
     const[val,setVal]=useState([])
     const [open, setOpen] = useState(true); 
     const dispatch=useDispatch()  
+    const[newTrueSeats,setNewTrueSeats]=useState([])
 
     useEffect(()=>{
         var gettingMovieFromParam=param.get('movieId') 
@@ -36,9 +37,9 @@ export const Ticket=()=>{
         let x=theaterWithMovie.filter((val)=>{
             return val.theaterName===gettingTheaterFromParam ? val : ""
         })  
-        // console.log(x)
         setTheaterSeats(x) 
         setTheaterNamePrinting(x[0].theaterName) 
+        dispatch(updateTicketArray(x))    
 
         if(x[0].movId.seatSoldornot.length>0){
             var newY=x[0].movId.seatSoldornot
@@ -59,8 +60,7 @@ export const Ticket=()=>{
             }
         } 
     },[param,state.array_recommended,state.duplicateTheaterSeat])   
-    
-    dispatch(updateTicketArray(theaterSeats))    
+
  
     const book=(idd)=>{
         var makestr=idd.split('') 
@@ -77,8 +77,8 @@ export const Ticket=()=>{
         pay.setAttribute("class","blockPayment")
         pay.innerHTML=`Pay Rs:${parseInt(i)*120}`
 
-        var storagetorf=state.ticketArray[0].movId.Ticket
-        var z=[...state.ticketArray[0].movId.movIds]
+        // var storagetorf=state.ticketArray[0].movId.Ticket
+        var z=movieIds
         if(z.length===0){ 
             i=i-1
             var a=[]
@@ -114,27 +114,38 @@ export const Ticket=()=>{
                 }
             }  
             setMovieIds(a)
-            var obj={
-                movId:
-                    {
-                        mid:state.ticketArray[0].movId.mid,
-                        Ticket:state.ticketArray[0].movId.Ticket,
-                        movIds:a,
-                        store:state.ticketArray[0].movId.store,
-                        seatSoldornot:state.ticketArray[0].movId.seatSoldornot
-                    },
-                theaterLocation:state.ticketArray[0].theaterLocation,
-                theaterName:state.ticketArray[0].theaterName,
-                theaterTiming:state.ticketArray[0].theaterTiming,
-                theaterTimingString:state.ticketArray[0].theaterTimingString
-            } 
-            dispatch(updateTicketArray([obj])) 
-            setTheaterSeats([obj])
+
+            var x=[...state.ticketArray[0].movId.Ticket]
+            var z=a 
+            for(var c=0;c<=z.length-1;c++){ 
+                for(var b=0;b<=x.length-1;b++){
+                    if(x[b].keyy===z[c]){
+                        var update={
+                            ...x[b],
+                            torf:true,
+                            availability:true
+                        }
+                        x.splice(b,1,update)
+                    }
+                }
+            }           
+            setTheaterSeats([x])  
+            setnewTrueObjects(x)
+
+            var gettorf=[...x]
+            for(var d=0;d<gettorf.length;d++){
+                var makeBooking=document.getElementById(gettorf[d].keyy)
+                if(gettorf[d].torf === true){
+                    makeBooking.classList.add("booked")
+                }
+                else{
+                    makeBooking.classList.remove("booked")
+                }
+            }                
         }
 
         else{
             var newcount=movieIds 
-
             if(newcount.length-1 === i-1){  
                 i=i-1
                 a=[]
@@ -171,28 +182,37 @@ export const Ticket=()=>{
                     }
                 } 
                 setMovieIds(a)
-                obj={
-                    movId:
-                        {
-                            mid:state.ticketArray[0].movId.mid,
-                            Ticket:state.ticketArray[0].movId.Ticket,
-                            movIds:a,
-                            store:state.ticketArray[0].movId.store,
-                            seatSoldornot:state.ticketArray[0].movId.seatSoldornot
-                        },
-                    theaterLocation:state.ticketArray[0].theaterLocation,
-                    theaterName:state.ticketArray[0].theaterName,
-                    theaterTiming:state.ticketArray[0].theaterTiming,
-                    theaterTimingString:state.ticketArray[0].theaterTimingString
-                } 
-                dispatch(updateTicketArray([obj]))
-                setTheaterSeats([obj])
+
+                var x=[...state.ticketArray[0].movId.Ticket]
+                var z=a 
+                for(var c=0;c<=z.length-1;c++){ 
+                    for(var b=0;b<=x.length-1;b++){
+                        if(x[b].keyy===z[c]){
+                            var update={
+                                ...x[b],
+                                torf:true,
+                                availability:true
+                            }
+                            x.splice(b,1,update)
+                        }
+                    }
+                }           
+                setTheaterSeats([x])  
+                setnewTrueObjects(x)
+
+                var gettorf=[...x]
+                for(var d=0;d<gettorf.length;d++){
+                    var makeBooking=document.getElementById(gettorf[d].keyy)
+                    if(gettorf[d].torf === true){
+                        makeBooking.classList.add("booked")
+                    }
+                    else{
+                        makeBooking.classList.remove("booked")
+                    }
+                }                   
             }
             else{
-                var newcountt=storagetorf.filter((val)=>{
-                    return val.torf===true
-                })
-                i=i-newcountt.length
+                i=i-movieIds.length
                 a=[]
 
                 for(j=0;j<i;j++){
@@ -228,111 +248,81 @@ export const Ticket=()=>{
                     }
                 }
                 setMovieIds(movieIds.concat(a))
-                obj={
-                    movId:
-                        {
-                            mid:state.ticketArray[0].movId.mid,
-                            Ticket:state.ticketArray[0].movId.Ticket,
-                            movIds:movieIds.concat(a),
-                            store:state.ticketArray[0].movId.store,
-                            seatSoldornot:state.ticketArray[0].movId.seatSoldornot
-                        },
-                    theaterLocation:state.ticketArray[0].theaterLocation,
-                    theaterName:state.ticketArray[0].theaterName,
-                    theaterTiming:state.ticketArray[0].theaterTiming,
-                    theaterTimingString:state.ticketArray[0].theaterTimingString
-                } 
-                dispatch(updateTicketArray([obj]))
-                setTheaterSeats([obj])
+                var x=[...state.ticketArray[0].movId.Ticket]
+                var z=movieIds.concat(a) 
+                for(var c=0;c<=z.length-1;c++){ 
+                    for(var b=0;b<=x.length-1;b++){
+                        if(x[b].keyy===z[c]){
+                            var update={
+                                ...x[b],
+                                torf:true,
+                                availability:true
+                            }
+                            x.splice(b,1,update)
+                        }
+                    }
+                }           
+                setTheaterSeats([x])  
+                setnewTrueObjects(x)
+
+                var gettorf=[...x]
+                for(var d=0;d<gettorf.length;d++){
+                    var makeBooking=document.getElementById(gettorf[d].keyy)
+                    if(gettorf[d].torf === true){
+                        makeBooking.classList.add("booked")
+                    }
+                }                
             }
         }  
     }
     useEffect(()=>{          
-        if(state.ticketArray.length>0){  
-            var x=[...state.ticketArray[0].movId.Ticket]
-            var z=movieIds
-            
-            var x_mapping_false=x.map((val)=>{
-                return val!=="" ? {...val,torf:false,availability:false} : ""
-            })
+        access()  
+    },[movieIds])
 
-
-            for(var c=0;c<=z.length-1;c++){ 
-                for(var b=0;b<=x_mapping_false.length-1;b++){
-                    if(x_mapping_false[b].keyy===z[c]){
-                        var update={
-                            ...x_mapping_false[b],
-                            torf:true,
-                            availability:true
-                        }
-                        x_mapping_false.splice(b,1,update)
-                    }
+    const access=()=>{ 
+        var gettorf=newTrueObjects
+        var newTrue=[]
+        if(gettorf.length>0){ 
+            for(var d=0;d<gettorf.length;d++){ 
+                if(gettorf[d].torf === true){ 
+                    newTrue[newTrue.length]=gettorf[d]
                 }
-            }    
+            
+            }
+            setNewTrueSeats(newTrue) 
+        }
+        // console.log(newTrue)
+    }
+
+
+
+    const pageRender=useNavigate()
+    const moveToCheckout=()=>{
+        if(iCount===movieIds.length){
+            // console.log(newTrueSeats)
+            var trueSeats=[...state.ticketArray[0].movId.seatSoldornot]
+            for(var d=0;d<newTrueObjects.length;d++){ 
+                if(newTrueObjects[d].torf === true){ 
+                    trueSeats[trueSeats.length]=newTrueObjects[d]
+                }
+            } 
             var obj={
                 movId:
                     {
                         mid:state.ticketArray[0].movId.mid,
-                        Ticket:x_mapping_false,
+                        Ticket:newTrueObjects,
                         movIds:movieIds,
                         store:state.ticketArray[0].movId.store,
-                        seatSoldornot:state.ticketArray[0].movId.seatSoldornot
+                        seatSoldornot:trueSeats
                     },
                     theaterLocation:state.ticketArray[0].theaterLocation,
                     theaterName:state.ticketArray[0].theaterName,
                     theaterTiming:state.ticketArray[0].theaterTiming,
                     theaterTimingString:state.ticketArray[0].theaterTimingString
                 } 
+            // console.log(obj)
             dispatch(updateTicketArray([obj]))
-            setTheaterSeats([obj])
-            setnewTrueObjects(obj)
-            
-            var seatSold=[...obj.movId.seatSoldornot]
-            var gettorf=obj.movId.Ticket
-            for(var d=0;d<gettorf.length;d++){ 
-                if(gettorf[d].torf === true){
-                    seatSold[seatSold.length]=gettorf[d]
-                }
-            }
-            obj={
-            movId:
-                {
-                    mid:state.ticketArray[0].movId.mid,
-                    Ticket:state.ticketArray[0].movId.Ticket,
-                    movIds:state.ticketArray[0].movId.movIds,
-                    store:state.ticketArray[0].movId.store,
-                    seatSoldornot:seatSold
-                },
-                theaterLocation:state.ticketArray[0].theaterLocation,
-                theaterName:state.ticketArray[0].theaterName,
-                theaterTiming:state.ticketArray[0].theaterTiming,
-                theaterTimingString:state.ticketArray[0].theaterTimingString
-            } 
-            setSeatSoldList([obj]) 
-        } 
-    },[movieIds])
 
-    useEffect(()=>{
-        if(movieIds.length>0){
-            var gettorf=[...state.ticketArray[0].movId.Ticket]
-            // console.log(gettorf)
-            for(var d=0;d<gettorf.length;d++){
-                var makeBooking=document.getElementById(gettorf[d].keyy)
-                if(gettorf[d].torf === true){
-                    makeBooking.classList.add("booked")
-                }
-                else{
-                    makeBooking.classList.remove("booked")
-                }
-            }
-        }
-    },[newTrueObjects])
-
-
-    const pageRender=useNavigate()
-    const moveToCheckout=()=>{
-        if(iCount===movieIds.length){
-            dispatch(updateTicketArray(seatSoldList))
             var gettingMovieFromParam=param.get('movieId') 
             var gettingTheaterFromParam=param.get('theaterName')
             pageRender(`/checkout?theaterName=${gettingTheaterFromParam}&movieId=${gettingMovieFromParam}`)
@@ -441,13 +431,9 @@ export const Ticket=()=>{
                 case 10:
                     setImg.setAttribute("src",`${require("../Image/van.png")}`)
                     break;
-                default:
-                    setImg.setAttribute("src",`${require("../Image/van.png")}`)
             }
         }
     } 
-
-
     const seatConform=()=>{
         setCount(Count)
         setOpen(false)
@@ -569,16 +555,16 @@ export const Ticket=()=>{
                             </Typography>
                         </Box>
                         <Box sx={{display:"flex",justifyContent:"center"}} className="seat-count" py={2}>
-                            <input onMouseOverCapture={()=>imgshow("1")} id="1" value="1" readOnly></input>
-                            <input onMouseOverCapture={()=>imgshow("2")} id="2" value="2" readOnly></input>
-                            <input onMouseOverCapture={()=>imgshow("3")} id="3" value="3" readOnly></input>
-                            <input onMouseOverCapture={()=>imgshow("4")} id="4" value="4" readOnly></input>
-                            <input onMouseOverCapture={()=>imgshow("5")} id="5" value="5" readOnly></input>
-                            <input onMouseOverCapture={()=>imgshow("6")} id="6" value="6" readOnly></input>
-                            <input onMouseOverCapture={()=>imgshow("7")} id="7" value="7" readOnly></input>
-                            <input onMouseOverCapture={()=>imgshow("8")} id="8" value="8" readOnly></input>
-                            <input onMouseOverCapture={()=>imgshow("9")} id="9" value="9" readOnly></input>
-                            <input onMouseOverCapture={()=>imgshow("10")} id="10" value="10" readOnly></input>
+                            <input onMouseEnter={()=>imgshow("1")} id="1" value="1" readOnly></input>
+                            <input onMouseEnter={()=>imgshow("2")} id="2" value="2" readOnly></input>
+                            <input onMouseEnter={()=>imgshow("3")} id="3" value="3" readOnly></input>
+                            <input onMouseEnter={()=>imgshow("4")} id="4" value="4" readOnly></input>
+                            <input onMouseEnter={()=>imgshow("5")} id="5" value="5" readOnly></input>
+                            <input onMouseEnter={()=>imgshow("6")} id="6" value="6" readOnly></input>
+                            <input onMouseEnter={()=>imgshow("7")} id="7" value="7" readOnly></input>
+                            <input onMouseEnter={()=>imgshow("8")} id="8" value="8" readOnly></input>
+                            <input onMouseEnter={()=>imgshow("9")} id="9" value="9" readOnly></input>
+                            <input onMouseEnter={()=>imgshow("10")} id="10" value="10" readOnly></input>
                         </Box>
                         <Box className="seat-count" sx={{textAlign:"center"}}>
                             <button className="col-5" type="submit" onClick={()=>seatConform()}>Select Seats</button>
@@ -610,7 +596,7 @@ export const Ticket=()=>{
                                                         :
                                                             <TableCell className="hoverSeat" sx={{padding:"0px",borderWidth:"0px"}}>
                                                                 <Box id={v.keyy} className="seatI" onClick={()=>book(v.keyy)}>
-                                                                    <a href style={{cursor:"pointer"}}>{v.number}</a>
+                                                                    <a style={{cursor:"pointer"}}>{v.number}</a>
                                                                 </Box>    
                                                             </TableCell> 
                                                         

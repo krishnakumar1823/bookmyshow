@@ -75,7 +75,7 @@ export const CarouselRecommended=()=>{
         pageRender(`/details?mid=${movieId}`)
       }
       
-      // console.log(state)
+      console.log(state)
       return (
           <Container className="carousel-recommended">
             <Box my={4}>

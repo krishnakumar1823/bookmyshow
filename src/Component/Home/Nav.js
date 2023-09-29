@@ -116,7 +116,7 @@ export const Nav=()=>{
                     <p>Unlock special offers & great benifits</p>
                 </Box>
                 <Box sx={{width:"30%"}}>
-                    <a href onClick={handleClickOpen} style={{cursor:"pointer",textDecoration:"none",color:"red",border:"1px solid red",padding:"10px 15px",borderRadius:"12px"}}>Login/Register</a>
+                    <a href="/#" onClick={handleClickOpen} style={{cursor:"pointer",textDecoration:"none",color:"red",border:"1px solid red",padding:"10px 15px",borderRadius:"12px"}}>Login/Register</a>
                 </Box>
             </Box>
           </List>
@@ -294,7 +294,7 @@ export const Nav=()=>{
                             alignItems={"center"}
                             sx={{mt:2 }}
                         >
-                            <a href style={{cursor:"pointer"}}>
+                            <a href="/#" style={{cursor:"pointer"}}>
                                 <svg viewBox="0 0 88 26" height="38" xmlns="http://www.w3.org/2000/svg">
                                 <title>BookMyShow</title>
                                     <g fill="none">
@@ -337,61 +337,61 @@ export const Nav=()=>{
                                 <p style={{textAlign:"center"}}>Popular cities</p>
                                 <Box px={3} sx={{display:"flex",flexWrap:"wrap"}} columnGap={"25px"}>
                                     <List>
-                                        <a href style={{fontSize:"12px",textDecoration:"none",color:"black"}} onClick={()=>settingLocation("Mumbai")}>
+                                        <a href="/#" style={{fontSize:"12px",textDecoration:"none",color:"black"}} onClick={()=>settingLocation("Mumbai")}>
                                             <img src={stateLoc.defaultLocation==="Mumbai" ? "https://in.bmscdn.com/m6/images/common-modules/regions/mumbai-selected.png":"https://in.bmscdn.com/m6/images/common-modules/regions/mumbai.png"} alt="location"/>
                                             <p style={{margin:"0px",textAlign:"center"}}>Mumbai</p>
                                         </a>
                                     </List>
                                     <List>
-                                    <a href style={{fontSize:"12px",textDecoration:"none",color:"black"}} onClick={()=>settingLocation("Delhi")}>
+                                    <a href="/#" style={{fontSize:"12px",textDecoration:"none",color:"black"}} onClick={()=>settingLocation("Delhi")}>
                                             <img src={stateLoc.defaultLocation==="Delhi" ?  "https://in.bmscdn.com/m6/images/common-modules/regions/ncr-selected.png":"https://in.bmscdn.com/m6/images/common-modules/regions/ncr.png"} alt="location"/>
                                             <p style={{margin:"0px",textAlign:"center"}}>Delhi</p>
                                         </a>
                                     </List>
                                     <List>
-                                    <a href style={{fontSize:"12px",textDecoration:"none",color:"black"}} onClick={()=>settingLocation("Bengaluru")}>
+                                    <a href="/#" style={{fontSize:"12px",textDecoration:"none",color:"black"}} onClick={()=>settingLocation("Bengaluru")}>
                                             <img  src={stateLoc.defaultLocation==="Bengaluru" ? "https://in.bmscdn.com/m6/images/common-modules/regions/bang-selected.png": "https://in.bmscdn.com/m6/images/common-modules/regions/bang.png"} alt="location"/>
                                             <p style={{margin:"0px",textAlign:"center"}}>Bengaluru</p>
                                         </a>
                                     </List>
                                     <List>
-                                    <a href style={{fontSize:"12px",textDecoration:"none",color:"black"}} onClick={()=>settingLocation("Hyderabad")}>
+                                    <a href="/#" style={{fontSize:"12px",textDecoration:"none",color:"black"}} onClick={()=>settingLocation("Hyderabad")}>
                                             <img src={stateLoc.defaultLocation==="Hyderabad" ? "https://in.bmscdn.com/m6/images/common-modules/regions/hyd-selected.png":"https://in.bmscdn.com/m6/images/common-modules/regions/hyd.png"} alt="location"/>
                                             <p style={{margin:"0px",textAlign:"center"}}>Hyderabad</p>
                                         </a>
                                     </List> 
                                     <List>
-                                        <a href style={{fontSize:"12px",textDecoration:"none",color:"black"}} onClick={()=>settingLocation("Ahmedabad")}>
+                                        <a href="/#" style={{fontSize:"12px",textDecoration:"none",color:"black"}} onClick={()=>settingLocation("Ahmedabad")}>
                                             <img  src={stateLoc.defaultLocation==="Ahmedabad" ? "https://in.bmscdn.com/m6/images/common-modules/regions/ahd-selected.png":"https://in.bmscdn.com/m6/images/common-modules/regions/ahd.png"} alt="location"/>
                                             <p style={{margin:"0px",textAlign:"center"}}>Ahmedabad</p>
                                         </a>
                                     </List>
                                     <List>
-                                    <a href style={{fontSize:"12px",textDecoration:"none",color:"black"}} onClick={()=>settingLocation("Chandigarh")}>
+                                    <a href="/#" style={{fontSize:"12px",textDecoration:"none",color:"black"}} onClick={()=>settingLocation("Chandigarh")}>
                                             <img src={stateLoc.defaultLocation==="Chandigarh" ? "https://in.bmscdn.com/m6/images/common-modules/regions/chd-selected.png":"https://in.bmscdn.com/m6/images/common-modules/regions/chd.png"} alt="location"/>
                                             <p style={{margin:"0px",textAlign:"center"}}>Chandigarh</p>
                                         </a>
                                     </List>
                                     <List>
-                                    <a href style={{fontSize:"12px",textDecoration:"none",color:"black"}} onClick={()=>settingLocation("Chennai")}>
+                                    <a href="/#" style={{fontSize:"12px",textDecoration:"none",color:"black"}} onClick={()=>settingLocation("Chennai")}>
                                             <img src={stateLoc.defaultLocation==="Chennai" ? "https://in.bmscdn.com/m6/images/common-modules/regions/chen-selected.png":"https://in.bmscdn.com/m6/images/common-modules/regions/chen.png"} alt="location"/>
                                             <p style={{margin:"0px",textAlign:"center"}}>Chennai</p>
                                         </a>
                                     </List> 
                                     <List>
-                                        <a href style={{fontSize:"12px",textDecoration:"none",color:"black"}} onClick={()=>settingLocation("Pune")}>
+                                        <a href="/#" style={{fontSize:"12px",textDecoration:"none",color:"black"}} onClick={()=>settingLocation("Pune")}>
                                             <img src={stateLoc.defaultLocation==="Pune" ? "https://in.bmscdn.com/m6/images/common-modules/regions/pune-selected.png":"https://in.bmscdn.com/m6/images/common-modules/regions/pune.png"} alt="location"/>
                                             <p style={{margin:"0px",textAlign:"center"}}>Pune</p>
                                         </a>
                                     </List>
                                     <List>
-                                    <a href style={{fontSize:"12px",textDecoration:"none",color:"black"}} onClick={()=>settingLocation("Kolkata")}>
+                                    <a href="/#" style={{fontSize:"12px",textDecoration:"none",color:"black"}} onClick={()=>settingLocation("Kolkata")}>
                                             <img src={stateLoc.defaultLocation==="Kolkata" ? "https://in.bmscdn.com/m6/images/common-modules/regions/kolk-selected.png":"https://in.bmscdn.com/m6/images/common-modules/regions/kolk.png"} alt="location"/>
                                             <p style={{margin:"0px",textAlign:"center"}}>Kolkata</p>
                                         </a>
                                     </List>
                                     <List>
-                                    <a href style={{fontSize:"12px",textDecoration:"none",color:"black"}} onClick={()=>settingLocation("Kochi")}>
+                                    <a href="/#" style={{fontSize:"12px",textDecoration:"none",color:"black"}} onClick={()=>settingLocation("Kochi")}>
                                             <img src={stateLoc.defaultLocation==="Kochi" ? "https://in.bmscdn.com/m6/images/common-modules/regions/koch-selected.png":"https://in.bmscdn.com/m6/images/common-modules/regions/koch.png"} alt="location"/>
                                             <p style={{margin:"0px",textAlign:"center"}}>Kochi</p>
                                         </a>
@@ -458,9 +458,9 @@ export const Nav=()=>{
                                 {button ?   
                                           <p style={{color:"gray",fontSize:"13px"}}>
                                             i agree to the 
-                                                <a href style={{color:"gray",padding:"0px 5px"}}>Terms & condition</a>
+                                                <a href="/#" style={{color:"gray",padding:"0px 5px"}}>Terms & condition</a>
                                                 &
-                                                <a href style={{color:"gray",paddingLeft:"5px"}}>Privacy policy</a>
+                                                <a href="/#" style={{color:"gray",paddingLeft:"5px"}}>Privacy policy</a>
                                             </p>
                                             :
                                             <Button className="signinButton" sx={{backgroundColor:"red",color:"white",fontSize:"13px"}}>Continue</Button>
@@ -499,40 +499,40 @@ export const Nav=()=>{
                         <Box sx={{display:"flex",flexWrap:"wrap",justifyContent:"space-between"}}>
                             <Box px={3} sx={{display:{ lg:'flex', md: 'flex',sm:'none',xs:'none' },flexWrap:"wrap"}} columnGap={"25px"}>
                                 <List>
-                                    <a href style={{fontSize:"12px",textDecoration:"none",color:"white"}}>Movies</a>
+                                    <a href="/#" style={{fontSize:"12px",textDecoration:"none",color:"white"}}>Movies</a>
                                 </List>
                                 <List>
-                                    <a href style={{fontSize:"12px",textDecoration:"none",color:"white"}}>Stream</a>
+                                    <a href="/#" style={{fontSize:"12px",textDecoration:"none",color:"white"}}>Stream</a>
                                 </List>
                                 <List>
-                                    <a href style={{fontSize:"12px",textDecoration:"none",color:"white"}}>Events</a>
+                                    <a href="/#" style={{fontSize:"12px",textDecoration:"none",color:"white"}}>Events</a>
                                 </List>
                                 <List>
-                                    <a href style={{fontSize:"12px",textDecoration:"none",color:"white"}}>Play</a>
+                                    <a href="/#" style={{fontSize:"12px",textDecoration:"none",color:"white"}}>Play</a>
                                 </List>
                                 <List>
-                                    <a href style={{fontSize:"12px",textDecoration:"none",color:"white"}}>Sports</a>
+                                    <a href="/#" style={{fontSize:"12px",textDecoration:"none",color:"white"}}>Sports</a>
                                 </List>
                                 <List>
-                                    <a href style={{fontSize:"12px",textDecoration:"none",color:"white"}}>Activities</a>
+                                    <a href="/#" style={{fontSize:"12px",textDecoration:"none",color:"white"}}>Activities</a>
                                 </List>
                                 <List>
-                                    <a href style={{fontSize:"12px",textDecoration:"none",color:"white"}}>Buzz</a>
+                                    <a href="/#" style={{fontSize:"12px",textDecoration:"none",color:"white"}}>Buzz</a>
                                 </List>
                             </Box>
 
                             <Box px={3} sx={{display:{ lg:'flex', md: 'flex',sm:'none',xs:'none' },flexWrap:"wrap"}} columnGap={"25px"}>
                                 <List>
-                                    <a href style={{fontSize:"12px",textDecoration:"none",color:"white"}}>ListYourShow</a>
+                                    <a href="/#" style={{fontSize:"12px",textDecoration:"none",color:"white"}}>ListYourShow</a>
                                 </List>
                                 <List>
-                                    <a href style={{fontSize:"12px",textDecoration:"none",color:"white"}}>Corporate</a>
+                                    <a href="/#" style={{fontSize:"12px",textDecoration:"none",color:"white"}}>Corporate</a>
                                 </List>
                                 <List>
-                                    <a href style={{fontSize:"12px",textDecoration:"none",color:"white"}}>Offers</a>
+                                    <a href="/#" style={{fontSize:"12px",textDecoration:"none",color:"white"}}>Offers</a>
                                 </List>
                                 <List>
-                                    <a href style={{fontSize:"12px",textDecoration:"none",color:"white"}}>Gift Cards</a>
+                                    <a href="/#" style={{fontSize:"12px",textDecoration:"none",color:"white"}}>Gift Cards</a>
                                 </List> 
                             </Box>
                         </Box>

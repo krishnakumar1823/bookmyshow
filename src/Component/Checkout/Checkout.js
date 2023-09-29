@@ -39,9 +39,10 @@ export const Checkout=()=>{
 
                     //deleting the original array if availability is true
                     var deleteBlockedIds=[...state.ticketArray[0].movId.seatSoldornot]
-                    // console.log(deleteBlockedIds)
+                    console.log(deleteBlockedIds)
                     var make=[...state.ticketArray[0].movId.Ticket]
 
+                    // for(var i=0;i<deleteBlockedIds.length;i++){
                     deleteBlockedIds.map((val,i)=>(    
                         make.filter((v,ind)=>{
                             if(v.keyy===deleteBlockedIds[i].keyy){
@@ -50,6 +51,7 @@ export const Checkout=()=>{
                             return false
                         })
                     ))
+                    // } 
                     // setTicketsPrinting(make)
 
                     //TICKET ARRAY MODIFICATION
