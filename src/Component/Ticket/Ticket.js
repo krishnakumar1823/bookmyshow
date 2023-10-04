@@ -12,6 +12,7 @@ export const Ticket=()=>{
     const state=useSelector(
         ({data})=>data
     ) 
+    
     const[param]=useSearchParams()
     const[theaterSeats,setTheaterSeats]=useState([]) 
     const[movieIds,setMovieIds]=useState([])

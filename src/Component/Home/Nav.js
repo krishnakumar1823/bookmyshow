@@ -10,7 +10,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { IoBagOutline,IoChatbubblesOutline } from "react-icons/io5";
 import { MdKeyboardArrowRight,MdOutlineOndemandVideo } from "react-icons/md";
-import { BsTicket,BsGift } from "react-icons/bs";
+import { BsTicket,BsGift,BsSearch } from "react-icons/bs";
 import { BiSearch } from "react-icons/bi";
 import { HiOutlineCreditCard } from "react-icons/hi";
 import { AiOutlineSetting,AiFillApple,AiFillCaretDown } from "react-icons/ai";
@@ -24,8 +24,11 @@ export const Nav=()=>{
     const stateLoc=useSelector(
         ({data})=>data
     )
-    const[SearchMoviesListt,setSearchMoviesListt]= React.useState("")
+
+    const[SearchMoviesListt,setSearchMoviesListt]= useState("")
     const[searchStateTrue,setsearchStateTrue]=useState(false)
+    const[nothingMatched,setNothingMatched]=useState(false)
+
      //searchbar
      const searchMovies=(e)=>{  
         var a=stateLoc.array_recommended 
@@ -47,15 +50,21 @@ export const Nav=()=>{
                 if(count===b.length){
                     obj[obj.length]=a[i] 
                     setSearchMoviesListt(obj)
-                }           
+                }         
+            }
+            if(obj.length>0){
+                setNothingMatched(false)
             } 
+            else{
+                setNothingMatched(true)
+            }
         }
         else{
             setsearchStateTrue(false)
             setSearchMoviesListt([])
         }
     }
-    // console.log(SearchMoviesListt)
+    console.log(nothingMatched)
 
       const BootstrapDialog = styled(Dialog)(({ theme }) => ({
         '& .MuiDialogContent-root': {
@@ -546,32 +555,48 @@ export const Nav=()=>{
                     <Box sx={{backgroundColor:"whitesmoke",position:"absolute",top:"100%",height:"auto",width:"100%"}}>
                         <Container>
                             <Box sx={{display:"flex",flexWrap:"wrap",justifyContent:"center",alignItems:"center"}}>
-                                {SearchMoviesListt.map((val,ind)=>{
-                                    return (<Box key={ind} sx={{width:"20%",padding:"10px"}}>
-                                        <Box style={{cursor:"pointer",border:"1px solid gray",borderRadius:"12px",backgroundColor:"white"}} onClick={()=>MovetoDetailPage(val.mid)}>
-                                            <Typography 
-                                                component="img" 
-                                                src={val.mimg}
-                                                sx={{width:"100%",borderRadius:"12px"}}
-                                                > 
-                                            </Typography> 
-                                            <Box>
-                                                <Typography 
-                                                    component="h3"  
-                                                    sx={{width:"100%",overflow:"hidden",textAlign:"start",padding:"10px 0px 10px 10px",fontWeight:600,fontSize:"12px",textTransform:"capitalize"}}
-                                                    > 
-                                                    {val.mname}
-                                                </Typography> 
-                                                <Typography 
-                                                    component="p"  
-                                                    sx={{width:"80%",overflow:"hidden",fontSize:"12px",textAlign:"start",paddingLeft:"10px",fontWeight:300,textTransform:"capitalize"}}
-                                                    > 
-                                                    {val.mtype}
+                                {
+                                    nothingMatched 
+                                        ?     
+                                        <Box sx={{width:"100%",height:"60vh",display:"flex",flexWrap:"wrap",justifyContent:"center",alignItems:"center"}}>
+                                            <Box sx={{width:"50%",border:"1px solid gray",borderRadius:"12px",padding:"20px",color:"rgb(236, 94, 113)",textAlign:"center"}}>
+                                                <BsSearch style={{fontSize:"50px"}}/>
+                                                <Typography
+                                                    component="p"
+                                                    sx={{fontSize:"15px",fontWeight:900}}>
+                                                        SORRY THAT MOVIE IS NOT AVAILABLE
                                                 </Typography>
                                             </Box>
                                         </Box>
-                                    </Box>)
-                                })}
+                                        :               
+                                            SearchMoviesListt.map((val,ind)=>{
+                                                return (<Box key={ind} sx={{width:"20%",padding:"10px"}}>
+                                                    <Box style={{cursor:"pointer",border:"1px solid gray",borderRadius:"12px",backgroundColor:"white"}} onClick={()=>MovetoDetailPage(val.mid)}>
+                                                        <Typography 
+                                                            component="img" 
+                                                            src={val.mimg}
+                                                            sx={{width:"100%",borderRadius:"12px"}}
+                                                            > 
+                                                        </Typography> 
+                                                        <Box>
+                                                            <Typography 
+                                                                component="h3"  
+                                                                sx={{width:"100%",overflow:"hidden",textAlign:"start",padding:"10px 0px 10px 10px",fontWeight:600,fontSize:"12px",textTransform:"capitalize"}}
+                                                                > 
+                                                                {val.mname}
+                                                            </Typography> 
+                                                            <Typography 
+                                                                component="p"  
+                                                                sx={{width:"80%",overflow:"hidden",fontSize:"12px",textAlign:"start",paddingLeft:"10px",fontWeight:300,textTransform:"capitalize"}}
+                                                                > 
+                                                                {val.mtype}
+                                                            </Typography>
+                                                        </Box>
+                                                    </Box>
+                                                </Box>)
+                                            })
+
+                                }
                             </Box>
                         </Container>
                     </Box>
