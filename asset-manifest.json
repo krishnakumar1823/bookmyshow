@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/bookmyshow/static/css/main.f8926c3f.css",
-    "main.js": "/bookmyshow/static/js/main.c26afea2.js",
+    "main.js": "/bookmyshow/static/js/main.a7cc2eb2.js",
     "static/js/787.833be13e.chunk.js": "/bookmyshow/static/js/787.833be13e.chunk.js",
     "static/media/newcar2.png": "/bookmyshow/static/media/newcar2.daaed5d450fdde5fafbb.png",
     "static/media/newscooter.png": "/bookmyshow/static/media/newscooter.be5e12b0ae8df3a4b322.png",
@@ -14,11 +14,11 @@
     "static/media/slick.woff": "/bookmyshow/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/bookmyshow/index.html",
     "main.f8926c3f.css.map": "/bookmyshow/static/css/main.f8926c3f.css.map",
-    "main.c26afea2.js.map": "/bookmyshow/static/js/main.c26afea2.js.map",
+    "main.a7cc2eb2.js.map": "/bookmyshow/static/js/main.a7cc2eb2.js.map",
     "787.833be13e.chunk.js.map": "/bookmyshow/static/js/787.833be13e.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.f8926c3f.css",
-    "static/js/main.c26afea2.js"
+    "static/js/main.a7cc2eb2.js"
   ]
 }
